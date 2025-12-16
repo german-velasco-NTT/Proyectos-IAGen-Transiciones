@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "code-generation-api"
+version = "1.0.0"
+description = "API para análisis de repositorios con LangGraph"
+authors = ["AxetFlows <noreply@axetflows.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+# API Framework
+fastapi = "^0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.32.0"}
+python-multipart = "^0.0.12"
+
+# OpenAI & LangChain
+openai = "^1.54.0"
+langchain = "^0.3.0"
+langchain-core = "^0.3.0"
+langchain-openai = "^0.2.0"
+
+# LangGraph
+langgraph = "^0.2.45"
+langgraph-checkpoint = "^2.0.2"
+langgraph-checkpoint-sqlite = "^2.0.4"
+
+# Azure
+azure-identity = "^1.19.0"
+azure-core = "^1.30.0"
+azure-devops = "^7.1.0b4"
+
+# Document Processing
+python-docx = "^1.1.2"
+
+# Data Validation
+pydantic = "^2.9.0"
+
+# Utilities
+python-dotenv = "^1.0.1"
+requests = "^2.32.0"
+aiofiles = "^24.1.0"
+python-gitlab = "^3.15.0"
+PyGithub = "^2.5.0"
+
+# Database
+aiosqlite = "^0.20.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+pytest-asyncio = "^0.24.0"
+black = "^24.8.0"
+ruff = "^0.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

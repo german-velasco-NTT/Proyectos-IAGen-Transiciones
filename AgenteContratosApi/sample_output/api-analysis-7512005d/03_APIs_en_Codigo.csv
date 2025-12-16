@@ -1,0 +1,11 @@
+Nombre,Tipo,Archivo,Descripción,Ubicación
+"","","src/api/main.py","",""
+"","","src/api/routers/chat.py","",""
+"","","src/api/routers/crypto.py","",""
+"","","src/api/routers/git.py","",""
+"","","src/api/routers/health.py","",""
+"","","src/api/routers/orchestrator_chat.py","",""
+"","","src/api/routers/webhook.py","",""
+"","","src/crewai_core/tools/doc_tool/docx_tools.py","",""
+"","","src/crewai_core/tools/docx_tools/docx_tools.py","",""
+"","","src/crewai_core/tools/word_writer_tool/markdown_to_word_tool.py","",""

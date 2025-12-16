@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/juanguaqueta/Desktop/AgentesIA/AgenteDeAplicaciones/api.py", line 31, in <module>
+    from LLMAnalyzer import InventoryAnalyzer
+  File "/Users/juanguaqueta/Desktop/AgentesIA/AgenteDeAplicaciones/LLMAnalyzer.py", line 17, in <module>
+    from dotenv import load_dotenv
+ModuleNotFoundError: No module named 'dotenv'

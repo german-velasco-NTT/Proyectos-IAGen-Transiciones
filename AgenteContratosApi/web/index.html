@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>API Analysis Agent</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🔌 API Contract & Topology Analyzer</h1>
+  </header>
+
+  <main id="app">
+  <section id="form-section" class="card">
+      <h2>Iniciar Análisis de APIs</h2>
+      <form id="analyze-form">
+        <label>Repository URL
+          <input type="text" name="repository_url" id="repository_url" placeholder="https://gitlab.com/grupo" required />
+        </label>
+        <label>Token
+          <input type="password" name="token" id="token" placeholder="TOKEN" required />
+        </label>
+        <details>
+          <summary>Opciones avanzadas</summary>
+          <label>Project Path (opcional)
+            <input type="text" name="project_path" id="project_path" placeholder="grupo/proyecto" />
+          </label>
+          <label>Auto discover groups
+            <select name="auto_discover_groups" id="auto_discover_groups">
+              <option value="true" selected>Sí</option>
+              <option value="false">No</option>
+            </select>
+          </label>
+          <label>Analysis Mode
+            <select name="analysis_mode" id="analysis_mode">
+              <option value="basic" selected>Básico</option>
+              <option value="intelligent">Inteligente</option>
+            </select>
+          </label>
+          <label>Días rama activa
+            <input type="number" name="active_days" id="active_days" value="30" min="1" />
+          </label>
+          <label>Días rama obsoleta
+            <input type="number" name="stale_days" id="stale_days" value="90" min="1" />
+          </label>
+        </details>
+        <button type="submit" id="startBtn">Analizar</button>
+      </form>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="card" id="dashboard-actions" style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button type="button" id="backBtn" style="background:#334155">Volver</button>
+          <button type="button" id="reloadBtn" style="background:#334155">Recargar</button>
+          <button type="button" id="downloadJsonZipBtn" style="background:#6366f1">Descargar JSON ZIP</button>
+        </div>
+        <div id="dashboardPlatform" style="font-size:.7rem;color:#94a3b8"></div>
+      </div>
+      <div class="card" id="summary"></div>
+      
+      <!-- Analisis con LLM -->
+      <div class="card" id="llm-analysis-section">
+        <h2>🤖 Analisis Inteligente del Repositorio</h2>
+        <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1.5rem;">Utiliza IA para extraer informacion valiosa del analisis de APIs</p>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+          <!-- 1. Arquitectura -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#6366f1;font-size:0.9rem;margin-bottom:0.5rem;">📐 Arquitectura de APIs</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Analiza estructura y patrones arquitectonicos.</p>
+            <button type="button" id="analyzeArchitectureBtn" style="background:#6366f1;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Analizar</button>
+          </div>
+
+          <!-- 2. Seguridad -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#ef4444;font-size:0.9rem;margin-bottom:0.5rem;">🔒 Analisis de Seguridad</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Evalua autenticacion y vulnerabilidades.</p>
+            <button type="button" id="analyzeSecurityBtn" style="background:#ef4444;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Revisar</button>
+          </div>
+
+          <!-- 3. Rendimiento -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#f59e0b;font-size:0.9rem;margin-bottom:0.5rem;">⚡ Rendimiento</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Identifica cuellos de botella.</p>
+            <button type="button" id="analyzePerformanceBtn" style="background:#f59e0b;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Optimizar</button>
+          </div>
+
+          <!-- 4. Compatibilidad -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#8b5cf6;font-size:0.9rem;margin-bottom:0.5rem;">🔄 Compatibilidad</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Verifica versiones y cambios.</p>
+            <button type="button" id="analyzeCompatibilityBtn" style="background:#8b5cf6;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Verificar</button>
+          </div>
+
+          <!-- 5. Documentacion -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#10b981;font-size:0.9rem;margin-bottom:0.5rem;">📚 Documentacion</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Genera documentacion automatica.</p>
+            <button type="button" id="generateDocumentationBtn" style="background:#10b981;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Generar</button>
+          </div>
+
+          <!-- 6. Migracion -->
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1rem;">
+            <h3 style="color:#06b6d4;font-size:0.9rem;margin-bottom:0.5rem;">🚀 Plan de Migracion</h3>
+            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;line-height:1.4;">Plan de refactorizacion.</p>
+            <button type="button" id="generateMigrationPlanBtn" style="background:#06b6d4;width:100%;color:white;border:none;padding:0.5rem;border-radius:4px;cursor:pointer;">Crear Plan</button>
+          </div>
+        </div>
+
+        <div id="llm-results-container" style="margin-top:2rem;display:none;">
+          <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:1.5rem;">
+            <h3 id="llm-results-title" style="color:#6366f1;margin-bottom:1rem;"></h3>
+            <div id="llm-results-content" style="color:#cbd5e1;line-height:1.6;white-space:pre-wrap;font-size:0.9rem;max-height:600px;overflow-y:auto;"></div>
+            <button type="button" id="closeLlmResultsBtn" style="margin-top:1rem;background:#334155;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Analyzer &copy; 2025</small>
+  </footer>
+
+  <script>
+    // Clear localStorage on page load to force fresh state
+    // localStorage.clear();
+    console.log('🔄 Cache busting enabled');
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
