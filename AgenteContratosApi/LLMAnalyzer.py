@@ -27,66 +27,11 @@ except ImportError:
 logger = logging.getLogger(__name__)
 load_dotenv()
 
-class AzureOpenAICompat:
-    """
-    Adaptador para exponer la interfaz OpenAI (chat.completions.create) usando AzureChatOpenAI vía AzureLLMProvider.
-    """
-    class Chat:
-        def __init__(self, azure_llm):
-            self.completions = self.Completions(azure_llm)
-
-        class Completions:
-            def __init__(self, azure_llm):
-                self.azure_llm = azure_llm
-
-            def create(self, model, messages, temperature=0.1, max_tokens=None, **kwargs):
-                # AzureChatOpenAI espera una lista de mensajes en formato [{"role": ..., "content": ...}]
-                # y devuelve un objeto con .content (o .generations[0].text)
-                # Simulamos la respuesta de OpenAI
-                prompt = ""
-                for m in messages:
-                    if m["role"] == "system":
-                        prompt += f"SYSTEM: {m['content']}\n"
-                    elif m["role"] == "user":
-                        prompt += f"USER: {m['content']}\n"
-                    elif m["role"] == "assistant":
-                        prompt += f"ASSISTANT: {m['content']}\n"
-                # Llama al modelo de Azure
-                response = self.azure_llm.invoke(messages, temperature=temperature)
-                # Simula la estructura de respuesta de OpenAI
-                class Choice:
-                    def __init__(self, content):
-                        self.message = type("msg", (), {"content": content})
-                class Response:
-                    def __init__(self, content):
-                        self.choices = [Choice(content)]
-                        self.usage = None  # Opcional: puedes mapear tokens si lo necesitas
-                return Response(response.content if hasattr(response, "content") else str(response))
-    def __init__(self, azure_llm):
-        self.chat = self.Chat(azure_llm)
-
 class LLMAnalyzer:
     """Analizador que usa LLM para generar insights y recomendaciones"""
     
-    def __init__(self, llm_provider: Optional[Any] = None):
-        """Inicializar el cliente LLM
-        
-        Args:
-            llm_provider: Cliente LLM opcional (AzureChatOpenAI o AzureEnablerSimple).
-                         Si se proporciona, se usa en lugar de crear uno nuevo.
-        """
-        if llm_provider is not None:
-            # Usar el proveedor proporcionado (puede ser AzureChatOpenAI o AzureEnablerSimple)
-            # Envolver con AzureOpenAICompat para exponer la interfaz OpenAI
-            try:
-                self.llm = AzureOpenAICompat(llm_provider)
-                logger.info("✅ LLM inicializado con proveedor proporcionado")
-            except Exception as e:
-                logger.warning(f"⚠️ Error envolviendo proveedor LLM: {e}")
-                self.llm = None
-            return
-        
-        # Fallback: crear LLM desde variables de entorno
+    def __init__(self):
+        """Inicializar el cliente LLM"""
         api_key = os.getenv("AZURE_OPENAI_API_KEY")
         endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
         deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o-mini")
@@ -98,7 +43,7 @@ class LLMAnalyzer:
             return
         
         try:
-            azure_llm = AzureChatOpenAI(
+            self.llm = AzureChatOpenAI(
                 api_key=api_key,
                 api_version=api_version,
                 azure_endpoint=endpoint,
@@ -106,8 +51,6 @@ class LLMAnalyzer:
                 temperature=0.3,  # Determinístico para análisis
                 max_tokens=2000,
             )
-            # Envolver con AzureOpenAICompat para exponer la interfaz OpenAI
-            self.llm = AzureOpenAICompat(azure_llm)
             logger.info(f"✅ LLM inicializado: {deployment}")
         except Exception as e:
             logger.warning(f"⚠️ Error inicializando LLM: {e}")
@@ -134,22 +77,11 @@ class LLMAnalyzer:
             
             inactivity_rate = (inactive_branches / total_branches * 100) if total_branches > 0 else 0
             
-            # Top 3 proyectos con más ramas inactivas
-            top_projects_list = sorted(
-                [(p["name"], len([b for b in p.get("branches", []) if b.get("status") == "INACTIVA"])) 
-                 for p in projects],
-                key=lambda x: x[1],
-                reverse=True
-            )[:3]
-            
-            top_projects_str = "\n".join([f"  - {name}: {count} inactivas" for name, count in top_projects_list])
-            
-            role = "Eres un experto en gestión de repositorios Git."
-            prompt = f"""
-Analiza los siguientes datos y genera un resumen ejecutivo:
+            prompt = ChatPromptTemplate.from_template("""
+Eres un experto en gestión de repositorios Git. Analiza los siguientes datos y genera un resumen ejecutivo:
 
 📊 DATOS:
-- Total de proyectos: {len(projects)}
+- Total de proyectos: {num_projects}
 - Total de ramas: {total_branches}
 - Ramas inactivas: {inactive_branches} ({inactivity_rate:.1f}%)
 - Releases/Tags obsoletos: {obsolete_tags}
@@ -157,7 +89,7 @@ Analiza los siguientes datos y genera un resumen ejecutivo:
 - Artefactos expirados: {expired_artifacts}
 
 Proyectos con más ramas inactivas:
-{top_projects_str}
+{top_projects}
 
 Genera un JSON con:
 {{
@@ -168,9 +100,32 @@ Genera un JSON con:
   "health_score": 0-100,
   "recommendations": ["recomendación 1", "recomendación 2", ...]
 }}
-"""
+""")
             
-            content = self._call_llm(role, prompt)
+            # Top 3 proyectos con más ramas inactivas
+            top_projects_list = sorted(
+                [(p["name"], len([b for b in p.get("branches", []) if b.get("status") == "INACTIVA"])) 
+                 for p in projects],
+                key=lambda x: x[1],
+                reverse=True
+            )[:3]
+            
+            top_projects_str = "\n".join([f"  - {name}: {count} inactivas" for name, count in top_projects_list])
+            
+            chain = prompt | self.llm
+            result = chain.invoke({
+                "num_projects": len(projects),
+                "total_branches": total_branches,
+                "inactive_branches": inactive_branches,
+                "inactivity_rate": inactivity_rate,
+                "obsolete_tags": obsolete_tags,
+                "expiring_artifacts": expiring_artifacts,
+                "expired_artifacts": expired_artifacts,
+                "top_projects": top_projects_str,
+            })
+            
+            # Parsear JSON
+            content = result.content
             try:
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
@@ -200,11 +155,10 @@ Genera un JSON con:
             days_since_commit = branch.get("days_since_last_commit", -1)
             last_commit = branch.get("last_commit_date", "desconocido")
             
-            role = "Eres un experto en limpieza de repositorios."
-            prompt = f"""
-Analiza esta rama Git:
+            prompt = ChatPromptTemplate.from_template("""
+Eres un experto en limpieza de repositorios. Analiza esta rama Git:
 
-🌿 RAMA: {branch.get("name", "unknown")}
+🌿 RAMA: {branch_name}
 📁 PROYECTO: {project_name}
 📊 ESTADO: {status}
 📅 ÚLTIMO COMMIT: {last_commit}
@@ -220,9 +174,18 @@ Genera un JSON con:
   "priority": 1-5,
   "estimated_impact": "Impacto de la acción recomendada"
 }}
-"""
+""")
             
-            content = self._call_llm(role, prompt)
+            chain = prompt | self.llm
+            result = chain.invoke({
+                "branch_name": branch.get("name", "unknown"),
+                "project_name": project_name,
+                "status": status,
+                "last_commit": last_commit,
+                "days_since_commit": days_since_commit,
+            })
+            
+            content = result.content
             try:
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
@@ -269,9 +232,8 @@ Genera un JSON con:
             
             branches_summary = json.dumps(top_inactive, ensure_ascii=False, indent=2)
             
-            role = "Eres un experto en DevOps limpieza de repositorios."
-            prompt = f"""
-Genera un plan de limpieza priorizado:
+            prompt = ChatPromptTemplate.from_template("""
+Eres un experto en DevOps limpieza de repositorios. Genera un plan de limpieza priorizado:
 
 📋 RAMAS INACTIVAS A CONSIDERAR:
 {branches_summary}
@@ -298,9 +260,14 @@ Genera un JSON con un plan de 3 fases:
     "automation": "Script recomendado"
   }}
 }}
-"""
+""")
             
-            content = self._call_llm(role, prompt)
+            chain = prompt | self.llm
+            result = chain.invoke({
+                "branches_summary": branches_summary,
+            })
+            
+            content = result.content
             try:
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
@@ -415,42 +382,6 @@ Genera un JSON con un plan de 3 fases:
             }
         }
     
-    def _call_llm(self, role: str, prompt: str) -> str:
-        """
-        Llama al proveedor de LLM si está disponible.
-        En modo desarrollo sin proveedor, devuelve una versión "mock" basada en el prompt.
-        """
-        logger.info("llamado a análisis")
-        if self.llm is None:
-            # Desarrollo: devuelve un mock razonable sin exponer datos sensibles.
-            return (
-                "Respuesta simulada del LLM (modo desarrollo): "
-                "Este resultado sirve como placeholder para pruebas de integración. "
-                "La respuesta real deberá ser generada por un servicio LLM cuando esté disponible."
-            )
-
-        # Intentar un acceso seguro al proveedor
-        try:
-            messages = [
-                {"role": "system", "content": role},
-                {"role": "user", "content": prompt}
-            ]
-            response = self.llm.chat.completions.create(
-                model="gpt-4.1",
-                messages=messages,
-                temperature=0.1
-            )
-
-            # Limpiar respuesta para obtener solo JSON
-            content = response.choices[0].message.content.strip()
-
-            logger.info(f"RESPUESTA LLM: {content}")
-            
-            return content
-        except Exception as e:
-            logger.error(f"Error invoking LLM: {e}")
-            return f"Error invoking LLM: {e}"
-    
     def analyze_api_catalog(self, catalog: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Analiza el catálogo de APIs y genera insights inteligentes
@@ -469,9 +400,8 @@ Genera un JSON con un plan de 3 fases:
                 code_files = catalog.get("total_code_files", 0)
                 total_endpoints = catalog.get("total_endpoints", 0)
                 
-                role = "Eres un experto en arquitectura de APIs."
-                prompt = f"""
-Analiza el siguiente catálogo de APIs y proporciona insights:
+                prompt = ChatPromptTemplate.from_template("""
+Eres un experto en arquitectura de APIs. Analiza el siguiente catálogo de APIs y proporciona insights:
 
 📊 CATÁLOGO:
 - Especificaciones encontradas: {specs_count}
@@ -491,23 +421,16 @@ Genera un JSON con una lista de insights en formato:
 ]
 
 Genera entre 5 y 8 insights basados en los datos. Sé específico y accionable.
-"""
+""")
                 
-                content = self._call_llm(role, prompt)
+                chain = prompt | self.llm | JsonOutputParser()
+                output = chain.invoke({
+                    "specs_count": specs_count,
+                    "code_files": code_files,
+                    "total_endpoints": total_endpoints
+                })
                 
-                # Parsear JSON
-                try:
-                    json_start = content.find("[")
-                    json_end = content.rfind("]") + 1
-                    if json_start != -1 and json_end > json_start:
-                        json_str = content[json_start:json_end]
-                        output = json.loads(json_str)
-                        result[0] = output if isinstance(output, list) else [output]
-                    else:
-                        raise ValueError("No se encontró JSON válido en la respuesta")
-                except json.JSONDecodeError as e:
-                    logger.error(f"Error parseando JSON: {e}")
-                    raise
+                result[0] = output if isinstance(output, list) else [output]
             except Exception as e:
                 logger.error(f"Error en LLM: {e}")
                 exception[0] = e
@@ -547,12 +470,11 @@ Genera entre 5 y 8 insights basados en los datos. Sé específico y accionable.
                 dependencies = topology.get("dependencies", {})
                 dep_count = len(dependencies) if isinstance(dependencies, dict) else 0
                 
-                role = "Eres un experto en optimización de APIs y arquitectura."
-                prompt = f"""
-Genera un plan de limpieza y mejora:
+                prompt = ChatPromptTemplate.from_template("""
+Eres un experto en optimización de APIs y arquitectura. Genera un plan de limpieza y mejora:
 
 📊 ANÁLISIS:
-- APIs documentadas (specs): {len(specs)}
+- APIs documentadas (specs): {specs_count}
 - APIs en código: {code_files}
 - Dependencias identificadas: {dep_count}
 
@@ -572,23 +494,16 @@ Genera un JSON con un array de recomendaciones en formato:
 ]
 
 Genera entre 4 y 6 recomendaciones priorizadas. Sé específico y medible.
-"""
+""")
                 
-                content = self._call_llm(role, prompt)
+                chain = prompt | self.llm | JsonOutputParser()
+                output = chain.invoke({
+                    "specs_count": len(specs),
+                    "code_files": code_files,
+                    "dep_count": dep_count
+                })
                 
-                # Parsear JSON
-                try:
-                    json_start = content.find("[")
-                    json_end = content.rfind("]") + 1
-                    if json_start != -1 and json_end > json_start:
-                        json_str = content[json_start:json_end]
-                        output = json.loads(json_str)
-                        result[0] = output if isinstance(output, list) else [output]
-                    else:
-                        raise ValueError("No se encontró JSON válido en la respuesta")
-                except json.JSONDecodeError as e:
-                    logger.error(f"Error parseando JSON: {e}")
-                    raise
+                result[0] = output if isinstance(output, list) else [output]
             except Exception as e:
                 logger.error(f"Error en LLM: {e}")
                 exception[0] = e
@@ -711,15 +626,17 @@ Genera entre 4 y 6 recomendaciones priorizadas. Sé específico y medible.
             return self._fallback_insights(context)
         
         try:
-            role = "Eres un experto en análisis de arquitecturas de APIs."
-            prompt = f"""
+            prompt = ChatPromptTemplate.from_template("""
+Eres un experto en análisis de arquitecturas de APIs. 
+
 Contexto: {context}
 
 Genera 3-4 insights clave sobre este conjunto de APIs. Sé conciso pero profundo.
-Formato: Usa viñetas con emojis relevantes. No uses JSON, devuelve texto plano.
-"""
+Formato: Usa viñetas con emojis relevantes. No uses JSON, devuelve texto plano.""")
             
-            return self._call_llm(role, prompt)
+            chain = prompt | self.llm
+            result = chain.invoke({"context": context})
+            return result.content if hasattr(result, 'content') else str(result)
         except Exception as e:
             logger.error(f"Error generando insights: {e}")
             return self._fallback_insights(context)
@@ -730,16 +647,18 @@ Formato: Usa viñetas con emojis relevantes. No uses JSON, devuelve texto plano.
             return self._fallback_recommendations(context)
         
         try:
-            role = "Eres un arquitecto de APIs experimentado."
-            prompt = f"""
+            prompt = ChatPromptTemplate.from_template("""
+Eres un arquitecto de APIs experimentado.
+
 Contexto: {context}
 
 Genera 3-4 recomendaciones prácticas para mejorar esta arquitectura de APIs.
 Cada recomendación debe ser accionable y incluir beneficio esperado.
-Formato: Usa viñetas numeradas. No uses JSON, devuelve texto plano.
-"""
+Formato: Usa viñetas numeradas. No uses JSON, devuelve texto plano.""")
             
-            return self._call_llm(role, prompt)
+            chain = prompt | self.llm
+            result = chain.invoke({"context": context})
+            return result.content if hasattr(result, 'content') else str(result)
         except Exception as e:
             logger.error(f"Error generando recomendaciones: {e}")
             return self._fallback_recommendations(context)
@@ -750,16 +669,18 @@ Formato: Usa viñetas numeradas. No uses JSON, devuelve texto plano.
             return self._fallback_risks(context)
         
         try:
-            role = "Eres un especialista en seguridad de APIs."
-            prompt = f"""
+            prompt = ChatPromptTemplate.from_template("""
+Eres un especialista en seguridad de APIs.
+
 Contexto: {context}
 
 Identifica 3-4 riesgos potenciales en esta arquitectura de APIs.
 Para cada riesgo: descripción, probabilidad (Alta/Media/Baja), impacto potencial.
-Formato: Usa viñetas con nivel de riesgo (🔴 Alto/🟠 Medio/🟡 Bajo). Texto plano, sin JSON.
-"""
+Formato: Usa viñetas con nivel de riesgo (🔴 Alto/🟠 Medio/🟡 Bajo). Texto plano, sin JSON.""")
             
-            return self._call_llm(role, prompt)
+            chain = prompt | self.llm
+            result = chain.invoke({"context": context})
+            return result.content if hasattr(result, 'content') else str(result)
         except Exception as e:
             logger.error(f"Error analizando riesgos: {e}")
             return self._fallback_risks(context)

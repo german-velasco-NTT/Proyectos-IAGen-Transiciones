@@ -91,19 +91,6 @@ class AnalysisConfig(BaseModel):
         return self.gitlab_token or self.token
 
 
-class GenerateRequest(BaseModel):
-    """Request para generar código"""
-    analyzeInfo: AnalysisConfig
-    
-    # Autenticación con Bearer Token para Axet
-    bearer_token: Optional[str] = None
-    azure_endpoint: Optional[str] = None
-    azure_deployment: Optional[str] = None
-    azure_api_version: Optional[str] = "2024-02-15-preview"
-    axet_user_id: Optional[str] = None  # ⭐ NUEVO
-    asset_id: Optional[str] = None
-
-
 class JobStatus(BaseModel):
     """Estado de un job"""
     job_id: str
@@ -201,7 +188,7 @@ async def health():
 
 @app.post("/api/v1/analyze")
 async def start_analysis(
-    req: AnalysisConfig,
+    config: AnalysisConfig,
     background_tasks: BackgroundTasks
 ):
     """
@@ -211,8 +198,7 @@ async def start_analysis(
     para detectar APIs implementadas, construir topología de dependencias y generar
     documentación normalizada de contratos.
     """
-    logger.info(f"Requ: {req}")
-    config = req
+    
     url = config.get_url()
     token = config.get_token()
     
@@ -257,8 +243,7 @@ async def start_analysis(
     background_tasks.add_task(
         run_analysis_job,
         job_id,
-        config,
-        req  # Pasar el request completo para acceso a configuración Azure
+        config
     )
     
     return {
@@ -604,7 +589,7 @@ async def get_job_file(job_id: str, filename: str):
 # LÓGICA DE PROCESAMIENTO
 # ============================================================
 
-def run_analysis_job(job_id: str, config: AnalysisConfig, azure_config: Optional[GenerateRequest] = None):
+def run_analysis_job(job_id: str, config: AnalysisConfig):
     """
     Ejecuta el análisis de APIs (función principal).
     ⭐ Actualiza progreso en tiempo real.
@@ -761,68 +746,11 @@ def run_analysis_job(job_id: str, config: AnalysisConfig, azure_config: Optional
 
 
 # ============================================================
-# FUNCIÓN PARA OBTENER LLM (AzureProvider o AzureBearerProvider)
-# ============================================================
-
-try:
-    from AzureProvider import get_azure_provider
-    AZURE_AVAILABLE = True
-except ImportError:
-    AZURE_AVAILABLE = False
-    logger.warning("AzureProvider no disponible. Modo análisis básico activado.")
-
-def get_llm(job_id, req: Optional[GenerateRequest] = None):
-    """Obtiene el cliente LLM usando AzureProvider o AzureBearerProvider según corresponda"""
-    try:
-        if req is None or req.bearer_token is None:
-            # Usar AzureProvider (con credenciales de .env)
-            provider = get_azure_provider()
-            llm = provider.get_llm()
-            logger.info("✅ LLM habilitado para análisis inteligente (AzureProvider)")
-
-            if not provider.test_connection():
-                raise ValueError("Azure OpenAI connection test failed")
-        else:
-            # Usar AzureBearerProvider (con bearer token del request)
-            from AzureBearerProvider import AzureEnablerSimple
-            
-            if req.azure_endpoint and req.azure_deployment:
-                llm = AzureEnablerSimple(
-                    bearer_token=req.bearer_token,
-                    azure_endpoint=req.azure_endpoint,
-                    deployment_name=req.azure_deployment,
-                    api_version=req.azure_api_version,
-                    axet_user_id=req.axet_user_id,
-                    asset_id=req.asset_id
-                )
-
-                logger.info(f"✅ Usando Bearer Token para {req.azure_deployment}")
-                if req.axet_user_id:
-                    logger.info(f"   Axet User ID: {req.axet_user_id}")
-                if req.asset_id:
-                    logger.info(f"   Asset ID: {req.asset_id}")
-
-                logger.warning(f"✅ LLM inicializado para job {job_id}")
-                
-                # Test de conexión (opcional, para validar credenciales)            
-                if not llm.test_connection():
-                    raise ValueError("Azure OpenAI connection test failed")
-            else:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Proporcione bearer_token + azure_endpoint + azure_deployment + axet_user_id + asset_id"
-                )        
-    except Exception as e:
-        logger.warning(f"⚠️ No se pudo inicializar LLM: {e}")
-        return None
-    return llm
-
-# ============================================================
 # ENDPOINTS PARA INSIGHTS Y RECOMENDACIONES (LLM)
 # ============================================================
 
-@app.post("/api/v1/jobs/{job_id}/insights")
-async def get_insights(job_id: str, req: GenerateRequest):
+@app.get("/api/v1/jobs/{job_id}/insights")
+async def get_insights(job_id: str):
     """
     🤖 Generar insights inteligentes usando LLM
     Analiza el catálogo completo de APIs y proporciona análisis profundo
@@ -841,16 +769,13 @@ async def get_insights(job_id: str, req: GenerateRequest):
         with open(catalog_file) as f:
             catalog = json.load(f)
         
-        # Obtener cliente LLM usando get_llm()
-        llm_client = get_llm(job_id, req)
-        
         # Usar LLMAnalyzer para generar insights
         from LLMAnalyzer import LLMAnalyzer
-        llm_analyzer = LLMAnalyzer(llm_provider=llm_client)
+        llm = LLMAnalyzer()
         
         # Generar insights (con fallback automático si no hay LLM)
-        insights = llm_analyzer.analyze_api_catalog(catalog)
-        source = "llm" if llm_analyzer.llm else "basic"
+        insights = llm.analyze_api_catalog(catalog)
+        source = "llm" if llm.llm else "basic"
         
         return {
             "insights": insights,
@@ -865,8 +790,8 @@ async def get_insights(job_id: str, req: GenerateRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/v1/jobs/{job_id}/recommendations")
-async def get_recommendations(job_id: str, req: GenerateRequest):
+@app.get("/api/v1/jobs/{job_id}/recommendations")
+async def get_recommendations(job_id: str):
     """
     📋 Generar recomendaciones inteligentes usando LLM
     Proporciona plan de acción para optimizar y limpiar APIs
@@ -889,16 +814,13 @@ async def get_recommendations(job_id: str, req: GenerateRequest):
         with open(topology_file) as f:
             topology = json.load(f)
         
-        # Obtener cliente LLM usando get_llm()
-        llm_client = get_llm(job_id, req)
-        
         # Usar LLMAnalyzer para generar recomendaciones
         from LLMAnalyzer import LLMAnalyzer
-        llm_analyzer = LLMAnalyzer(llm_provider=llm_client)
+        llm = LLMAnalyzer()
         
         # Generar recomendaciones (con fallback automático si no hay LLM)
-        recommendations = llm_analyzer.generate_cleanup_plan(catalog, topology)
-        source = "llm" if llm_analyzer.llm else "basic"
+        recommendations = llm.generate_cleanup_plan(catalog, topology)
+        source = "llm" if llm.llm else "basic"
         
         return {
             "recommendations": recommendations,

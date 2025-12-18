@@ -1,0 +1,1683 @@
+{
+  "issues": [
+    {
+      "id": 1,
+      "iid": 1,
+      "title": "Mejorar autenticación OAuth2",
+      "description": "[CRITICAL] Implementar soporte completo para OAuth2 con múltiples proveedores (Google, Microsoft, GitHub)",
+      "state": "closed",
+      "created_at": "2025-12-10T10:30:00Z",
+      "updated_at": "2025-12-15T14:20:00Z",
+      "labels": [
+        "enhancement",
+        "auth",
+        "security"
+      ]
+    },
+    {
+      "id": 2,
+      "iid": 2,
+      "title": "Optimizar consultas a BD",
+      "description": "[CRITICAL] Revisar índices y optimizar queries lentas en la base de datos. Performance actual: 2-3s en algunos endpoints",
+      "state": "opened",
+      "created_at": "2025-12-09T09:15:00Z",
+      "updated_at": "2025-12-14T11:45:00Z",
+      "labels": [
+        "performance",
+        "database",
+        "optimization"
+      ]
+    },
+    {
+      "id": 3,
+      "iid": 3,
+      "title": "Implementar caché Redis",
+      "description": "[CRITICAL] Agregar capa de caché con Redis para mejorar rendimiento y reducir carga en BD",
+      "state": "closed",
+      "created_at": "2025-12-08T08:00:00Z",
+      "updated_at": "2025-12-13T16:30:00Z",
+      "labels": [
+        "performance",
+        "infrastructure",
+        "cache"
+      ]
+    },
+    {
+      "id": 4,
+      "iid": 4,
+      "title": "Crear dashboard de métricas",
+      "description": "[CRITICAL] Dashboard con métricas de uso, rendimiento y errores en tiempo real. Usar Grafana o similar",
+      "state": "opened",
+      "created_at": "2025-12-07T07:45:00Z",
+      "updated_at": "2025-12-12T09:20:00Z",
+      "labels": [
+        "monitoring",
+        "dashboard",
+        "feature"
+      ]
+    },
+    {
+      "id": 5,
+      "iid": 5,
+      "title": "Documentar API REST",
+      "description": "[CRITICAL] Crear documentación Swagger completa de todos los endpoints con ejemplos",
+      "state": "closed",
+      "created_at": "2025-12-06T06:30:00Z",
+      "updated_at": "2025-12-11T13:00:00Z",
+      "labels": [
+        "documentation",
+        "api"
+      ]
+    },
+    {
+      "id": 6,
+      "iid": 6,
+      "title": "Implementar tests unitarios",
+      "description": "[HIGH] Aumentar cobertura de tests unitarios a 80%. Actualmente en 45%",
+      "state": "opened",
+      "created_at": "2025-12-05T05:15:00Z",
+      "updated_at": "2025-12-10T10:50:00Z",
+      "labels": [
+        "testing",
+        "quality",
+        "ci/cd"
+      ]
+    },
+    {
+      "id": 7,
+      "iid": 7,
+      "title": "Configurar CI/CD pipeline",
+      "description": "[HIGH] Setup de GitLab CI con build, test y deploy automático a staging y producción",
+      "state": "closed",
+      "created_at": "2025-12-04T04:00:00Z",
+      "updated_at": "2025-12-09T15:30:00Z",
+      "labels": [
+        "ci/cd",
+        "devops",
+        "automation"
+      ]
+    },
+    {
+      "id": 8,
+      "iid": 8,
+      "title": "Mejorar manejo de errores",
+      "description": "[HIGH] Implementar sistema robusto de manejo de excepciones con logging adecuado",
+      "state": "opened",
+      "created_at": "2025-12-03T03:45:00Z",
+      "updated_at": "2025-12-08T12:15:00Z",
+      "labels": [
+        "error-handling",
+        "logging",
+        "quality"
+      ]
+    },
+    {
+      "id": 9,
+      "iid": 9,
+      "title": "Refactorizar módulo de pagos",
+      "description": "[HIGH] Refactorizar código de pagos para mejorar mantenibilidad. Considerar patrón Strategy",
+      "state": "closed",
+      "created_at": "2025-12-02T02:30:00Z",
+      "updated_at": "2025-12-07T08:45:00Z",
+      "labels": [
+        "refactoring",
+        "payments",
+        "maintainability"
+      ]
+    },
+    {
+      "id": 10,
+      "iid": 10,
+      "title": "Agregar logs estructurados",
+      "description": "[HIGH] Implementar logging estructurado con ELK stack para mejor análisis",
+      "state": "opened",
+      "created_at": "2025-12-01T01:15:00Z",
+      "updated_at": "2025-12-06T14:20:00Z",
+      "labels": [
+        "logging",
+        "monitoring",
+        "elk"
+      ]
+    },
+    {
+      "id": 11,
+      "iid": 11,
+      "title": "Seguridad: CORS headers",
+      "description": "[HIGH] Configurar correctamente headers CORS en todos endpoints para mejorar seguridad",
+      "state": "closed",
+      "created_at": "2025-11-30T23:00:00Z",
+      "updated_at": "2025-12-05T11:00:00Z",
+      "labels": [
+        "security",
+        "cors",
+        "headers"
+      ]
+    },
+    {
+      "id": 12,
+      "iid": 12,
+      "title": "Implementar rate limiting",
+      "description": "[HIGH] Agregar rate limiting para proteger API de abuso y DDoS",
+      "state": "opened",
+      "created_at": "2025-11-29T22:00:00Z",
+      "updated_at": "2025-12-04T16:30:00Z",
+      "labels": [
+        "security",
+        "api",
+        "protection"
+      ]
+    },
+    {
+      "id": 13,
+      "iid": 13,
+      "title": "Migración a PostgreSQL",
+      "description": "[HIGH] Migrar datos de MySQL a PostgreSQL. Plan: preparar script, testing en staging, deploy en producción",
+      "state": "closed",
+      "created_at": "2025-11-28T21:00:00Z",
+      "updated_at": "2025-12-03T09:15:00Z",
+      "labels": [
+        "database",
+        "migration",
+        "postgresql"
+      ]
+    },
+    {
+      "id": 14,
+      "iid": 14,
+      "title": "Performance: Lazy loading",
+      "description": "[HIGH] Implementar lazy loading en componentes frontend para mejorar tiempo de carga inicial",
+      "state": "opened",
+      "created_at": "2025-11-27T20:00:00Z",
+      "updated_at": "2025-12-02T13:45:00Z",
+      "labels": [
+        "performance",
+        "frontend",
+        "optimization"
+      ]
+    },
+    {
+      "id": 15,
+      "iid": 15,
+      "title": "Validación de datos mejorada",
+      "description": "[HIGH] Agregar validaciones más robustas en entrada de datos. Usar Joi o similar",
+      "state": "closed",
+      "created_at": "2025-11-26T19:00:00Z",
+      "updated_at": "2025-12-01T10:20:00Z",
+      "labels": [
+        "validation",
+        "security",
+        "input"
+      ]
+    },
+    {
+      "id": 16,
+      "iid": 16,
+      "title": "Implement WebSocket",
+      "description": "[MEDIUM] Agregar soporte WebSocket para notificaciones en tiempo real a clientes",
+      "state": "opened",
+      "created_at": "2025-11-25T18:00:00Z",
+      "updated_at": "2025-11-30T15:00:00Z",
+      "labels": [
+        "websocket",
+        "realtime",
+        "feature"
+      ]
+    },
+    {
+      "id": 17,
+      "iid": 17,
+      "title": "Backup y disaster recovery",
+      "description": "[MEDIUM] Implementar sistema de backup automático y plan de recuperación ante desastres",
+      "state": "closed",
+      "created_at": "2025-11-24T17:00:00Z",
+      "updated_at": "2025-11-29T12:30:00Z",
+      "labels": [
+        "backup",
+        "disaster-recovery",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": 18,
+      "iid": 18,
+      "title": "Monitoreo de uptime",
+      "description": "[MEDIUM] Configurar sistema de monitoreo y alertas para uptime. Usar Datadog o similar",
+      "state": "opened",
+      "created_at": "2025-11-23T16:00:00Z",
+      "updated_at": "2025-11-28T11:00:00Z",
+      "labels": [
+        "monitoring",
+        "uptime",
+        "alerting"
+      ]
+    },
+    {
+      "id": 19,
+      "iid": 19,
+      "title": "Mejorar UX mobile",
+      "description": "[MEDIUM] Optimizar interfaz para dispositivos móviles. Revisar breakpoints y responsive design",
+      "state": "closed",
+      "created_at": "2025-11-22T15:00:00Z",
+      "updated_at": "2025-11-27T09:45:00Z",
+      "labels": [
+        "ui/ux",
+        "mobile",
+        "responsive"
+      ]
+    },
+    {
+      "id": 20,
+      "iid": 20,
+      "title": "Audit trail completo",
+      "description": "[MEDIUM] Implementar registro de auditoría para todas las acciones de usuarios en el sistema",
+      "state": "opened",
+      "created_at": "2025-11-21T14:00:00Z",
+      "updated_at": "2025-11-26T08:20:00Z",
+      "labels": [
+        "audit",
+        "security",
+        "compliance"
+      ]
+    },
+    {
+      "id": 21,
+      "iid": 21,
+      "title": "API Gateway",
+      "description": "[MEDIUM] Implementar API Gateway con autenticación y rate limiting. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-25T19:31:32.286536Z",
+      "updated_at": "2025-11-25T19:31:32.286536Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 22,
+      "iid": 22,
+      "title": "API Gateway - Parte 2",
+      "description": "[MEDIUM] Implementar API Gateway con autenticación y rate limiting. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-24T19:31:32.286552Z",
+      "updated_at": "2025-11-24T19:31:32.286552Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 23,
+      "iid": 23,
+      "title": "Microservicios",
+      "description": "[MEDIUM] Migrar arquitectura monolítica a microservicios. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-23T19:31:32.286557Z",
+      "updated_at": "2025-11-23T19:31:32.286557Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 24,
+      "iid": 24,
+      "title": "Microservicios - Parte 2",
+      "description": "[MEDIUM] Migrar arquitectura monolítica a microservicios. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-22T19:31:32.286560Z",
+      "updated_at": "2025-11-22T19:31:32.286560Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 25,
+      "iid": 25,
+      "title": "Contenedores",
+      "description": "[MEDIUM] Dockerizar todas las aplicaciones del proyecto. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-21T19:31:32.286564Z",
+      "updated_at": "2025-11-21T19:31:32.286564Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 26,
+      "iid": 26,
+      "title": "Contenedores - Parte 2",
+      "description": "[MEDIUM] Dockerizar todas las aplicaciones del proyecto. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-20T19:31:32.286566Z",
+      "updated_at": "2025-11-20T19:31:32.286566Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 27,
+      "iid": 27,
+      "title": "Orquestación K8s",
+      "description": "[MEDIUM] Implementar Kubernetes para orquestación de contenedores. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-19T19:31:32.286569Z",
+      "updated_at": "2025-11-19T19:31:32.286569Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 28,
+      "iid": 28,
+      "title": "Orquestación K8s - Parte 2",
+      "description": "[MEDIUM] Implementar Kubernetes para orquestación de contenedores. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-18T19:31:32.286571Z",
+      "updated_at": "2025-11-18T19:31:32.286571Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 29,
+      "iid": 29,
+      "title": "Service Mesh",
+      "description": "[MEDIUM] Implementar Istio como service mesh. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-17T19:31:32.286573Z",
+      "updated_at": "2025-11-17T19:31:32.286573Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 30,
+      "iid": 30,
+      "title": "Service Mesh - Parte 2",
+      "description": "[MEDIUM] Implementar Istio como service mesh. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-16T19:31:32.286575Z",
+      "updated_at": "2025-11-16T19:31:32.286575Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 31,
+      "iid": 31,
+      "title": "GraphQL API",
+      "description": "[MEDIUM] Crear API GraphQL alternativa a REST. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-15T19:31:32.286577Z",
+      "updated_at": "2025-12-15T19:31:32.286577Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 32,
+      "iid": 32,
+      "title": "GraphQL API - Parte 2",
+      "description": "[MEDIUM] Crear API GraphQL alternativa a REST. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-14T19:31:32.286579Z",
+      "updated_at": "2025-12-14T19:31:32.286579Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 33,
+      "iid": 33,
+      "title": "Subscriptions",
+      "description": "[MEDIUM] Implementar sistema de suscripciones para usuarios. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-13T19:31:32.286582Z",
+      "updated_at": "2025-12-13T19:31:32.286582Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 34,
+      "iid": 34,
+      "title": "Subscriptions - Parte 2",
+      "description": "[MEDIUM] Implementar sistema de suscripciones para usuarios. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-12T19:31:32.286584Z",
+      "updated_at": "2025-12-12T19:31:32.286584Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 35,
+      "iid": 35,
+      "title": "Payment Gateway",
+      "description": "[MEDIUM] Integrar múltiples pasarelas de pago. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-11T19:31:32.286586Z",
+      "updated_at": "2025-12-11T19:31:32.286586Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 36,
+      "iid": 36,
+      "title": "Payment Gateway - Parte 2",
+      "description": "[MEDIUM] Integrar múltiples pasarelas de pago. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-10T19:31:32.286588Z",
+      "updated_at": "2025-12-10T19:31:32.286588Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 37,
+      "iid": 37,
+      "title": "Email Service",
+      "description": "[MEDIUM] Implementar servicio de envío de emails. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-09T19:31:32.286590Z",
+      "updated_at": "2025-12-09T19:31:32.286590Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 38,
+      "iid": 38,
+      "title": "Email Service - Parte 2",
+      "description": "[MEDIUM] Implementar servicio de envío de emails. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-08T19:31:32.286592Z",
+      "updated_at": "2025-12-08T19:31:32.286592Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 39,
+      "iid": 39,
+      "title": "SMS Notifications",
+      "description": "[MEDIUM] Agregar notificaciones por SMS. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-07T19:31:32.286595Z",
+      "updated_at": "2025-12-07T19:31:32.286595Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 40,
+      "iid": 40,
+      "title": "SMS Notifications - Parte 2",
+      "description": "[MEDIUM] Agregar notificaciones por SMS. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-06T19:31:32.286597Z",
+      "updated_at": "2025-12-06T19:31:32.286597Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 41,
+      "iid": 41,
+      "title": "Push Notifications",
+      "description": "[MEDIUM] Sistema de notificaciones push para mobile. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-05T19:31:32.286599Z",
+      "updated_at": "2025-12-05T19:31:32.286599Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 42,
+      "iid": 42,
+      "title": "Push Notifications - Parte 2",
+      "description": "[MEDIUM] Sistema de notificaciones push para mobile. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-04T19:31:32.286601Z",
+      "updated_at": "2025-12-04T19:31:32.286601Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 43,
+      "iid": 43,
+      "title": "Analytics",
+      "description": "[MEDIUM] Implementar analytics avanzado. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-03T19:31:32.286603Z",
+      "updated_at": "2025-12-03T19:31:32.286603Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 44,
+      "iid": 44,
+      "title": "Analytics - Parte 2",
+      "description": "[MEDIUM] Implementar analytics avanzado. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-02T19:31:32.286605Z",
+      "updated_at": "2025-12-02T19:31:32.286605Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 45,
+      "iid": 45,
+      "title": "A/B Testing",
+      "description": "[MEDIUM] Framework para A/B testing de features. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-01T19:31:32.286607Z",
+      "updated_at": "2025-12-01T19:31:32.286607Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 46,
+      "iid": 46,
+      "title": "A/B Testing - Parte 2",
+      "description": "[MEDIUM] Framework para A/B testing de features. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-30T19:31:32.286609Z",
+      "updated_at": "2025-11-30T19:31:32.286609Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 47,
+      "iid": 47,
+      "title": "Feature Flags",
+      "description": "[MEDIUM] Sistema de feature flags para rollouts gradual. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-29T19:31:32.286611Z",
+      "updated_at": "2025-11-29T19:31:32.286611Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 48,
+      "iid": 48,
+      "title": "Feature Flags - Parte 2",
+      "description": "[MEDIUM] Sistema de feature flags para rollouts gradual. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-28T19:31:32.286613Z",
+      "updated_at": "2025-11-28T19:31:32.286613Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 49,
+      "iid": 49,
+      "title": "Config Management",
+      "description": "[MEDIUM] Centralizar configuración con Consul/etcd. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-27T19:31:32.286615Z",
+      "updated_at": "2025-11-27T19:31:32.286615Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 50,
+      "iid": 50,
+      "title": "Config Management - Parte 2",
+      "description": "[MEDIUM] Centralizar configuración con Consul/etcd. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-26T19:31:32.286617Z",
+      "updated_at": "2025-11-26T19:31:32.286617Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 51,
+      "iid": 51,
+      "title": "Secret Management",
+      "description": "[MEDIUM] Gestión segura de secretos con Vault. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-25T19:31:32.286619Z",
+      "updated_at": "2025-11-25T19:31:32.286619Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 52,
+      "iid": 52,
+      "title": "Secret Management - Parte 2",
+      "description": "[MEDIUM] Gestión segura de secretos con Vault. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-24T19:31:32.286621Z",
+      "updated_at": "2025-11-24T19:31:32.286621Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 53,
+      "iid": 53,
+      "title": "SSL/TLS",
+      "description": "[MEDIUM] Implementar SSL/TLS en todos los endpoints. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-23T19:31:32.286623Z",
+      "updated_at": "2025-11-23T19:31:32.286623Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 54,
+      "iid": 54,
+      "title": "SSL/TLS - Parte 2",
+      "description": "[MEDIUM] Implementar SSL/TLS en todos los endpoints. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-22T19:31:32.286625Z",
+      "updated_at": "2025-11-22T19:31:32.286625Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 55,
+      "iid": 55,
+      "title": "DDoS Protection",
+      "description": "[MEDIUM] Protección contra ataques DDoS. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-21T19:31:32.286627Z",
+      "updated_at": "2025-11-21T19:31:32.286627Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 56,
+      "iid": 56,
+      "title": "DDoS Protection - Parte 2",
+      "description": "[MEDIUM] Protección contra ataques DDoS. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-20T19:31:32.286629Z",
+      "updated_at": "2025-11-20T19:31:32.286629Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 57,
+      "iid": 57,
+      "title": "WAF Rules",
+      "description": "[MEDIUM] Configurar Web Application Firewall. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-19T19:31:32.286631Z",
+      "updated_at": "2025-11-19T19:31:32.286631Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 58,
+      "iid": 58,
+      "title": "WAF Rules - Parte 2",
+      "description": "[MEDIUM] Configurar Web Application Firewall. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-18T19:31:32.286633Z",
+      "updated_at": "2025-11-18T19:31:32.286633Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 59,
+      "iid": 59,
+      "title": "API Rate Limiting",
+      "description": "[MEDIUM] Implementar rate limiting por usuario/IP. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-17T19:31:32.286635Z",
+      "updated_at": "2025-11-17T19:31:32.286635Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 60,
+      "iid": 60,
+      "title": "API Rate Limiting - Parte 2",
+      "description": "[MEDIUM] Implementar rate limiting por usuario/IP. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-16T19:31:32.286637Z",
+      "updated_at": "2025-11-16T19:31:32.286637Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 61,
+      "iid": 61,
+      "title": "Request Signing",
+      "description": "[MEDIUM] Validación de firmas en requests. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-15T19:31:32.286639Z",
+      "updated_at": "2025-12-15T19:31:32.286639Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 62,
+      "iid": 62,
+      "title": "Request Signing - Parte 2",
+      "description": "[MEDIUM] Validación de firmas en requests. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-14T19:31:32.286641Z",
+      "updated_at": "2025-12-14T19:31:32.286641Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 63,
+      "iid": 63,
+      "title": "Token Refresh",
+      "description": "[MEDIUM] Mecanismo de refresh tokens. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-13T19:31:32.286643Z",
+      "updated_at": "2025-12-13T19:31:32.286643Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 64,
+      "iid": 64,
+      "title": "Token Refresh - Parte 2",
+      "description": "[MEDIUM] Mecanismo de refresh tokens. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-12T19:31:32.286645Z",
+      "updated_at": "2025-12-12T19:31:32.286645Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 65,
+      "iid": 65,
+      "title": "2FA Authentication",
+      "description": "[MEDIUM] Autenticación de dos factores. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-11T19:31:32.286647Z",
+      "updated_at": "2025-12-11T19:31:32.286647Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 66,
+      "iid": 66,
+      "title": "2FA Authentication - Parte 2",
+      "description": "[MEDIUM] Autenticación de dos factores. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-10T19:31:32.286649Z",
+      "updated_at": "2025-12-10T19:31:32.286649Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 67,
+      "iid": 67,
+      "title": "Biometric Auth",
+      "description": "[MEDIUM] Autenticación biométrica para mobile. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-09T19:31:32.286651Z",
+      "updated_at": "2025-12-09T19:31:32.286651Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 68,
+      "iid": 68,
+      "title": "Biometric Auth - Parte 2",
+      "description": "[MEDIUM] Autenticación biométrica para mobile. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-08T19:31:32.286653Z",
+      "updated_at": "2025-12-08T19:31:32.286653Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 69,
+      "iid": 69,
+      "title": "Social Login",
+      "description": "[MEDIUM] Integración con redes sociales. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-07T19:31:32.286655Z",
+      "updated_at": "2025-12-07T19:31:32.286655Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 70,
+      "iid": 70,
+      "title": "Social Login - Parte 2",
+      "description": "[MEDIUM] Integración con redes sociales. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-06T19:31:32.286657Z",
+      "updated_at": "2025-12-06T19:31:32.286657Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 71,
+      "iid": 71,
+      "title": "SSO Integration",
+      "description": "[MEDIUM] Single Sign-On corporativo. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-05T19:31:32.286659Z",
+      "updated_at": "2025-12-05T19:31:32.286659Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 72,
+      "iid": 72,
+      "title": "SSO Integration - Parte 2",
+      "description": "[MEDIUM] Single Sign-On corporativo. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-04T19:31:32.286661Z",
+      "updated_at": "2025-12-04T19:31:32.286661Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 73,
+      "iid": 73,
+      "title": "Data Encryption",
+      "description": "[MEDIUM] Encripción de datos en reposo. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-03T19:31:32.286663Z",
+      "updated_at": "2025-12-03T19:31:32.286663Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 74,
+      "iid": 74,
+      "title": "Data Encryption - Parte 2",
+      "description": "[MEDIUM] Encripción de datos en reposo. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-02T19:31:32.286665Z",
+      "updated_at": "2025-12-02T19:31:32.286665Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 75,
+      "iid": 75,
+      "title": "Field-level Encryption",
+      "description": "[MEDIUM] Encripción a nivel de campo. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-01T19:31:32.286667Z",
+      "updated_at": "2025-12-01T19:31:32.286667Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 76,
+      "iid": 76,
+      "title": "Field-level Encryption - Parte 2",
+      "description": "[MEDIUM] Encripción a nivel de campo. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-30T19:31:32.286669Z",
+      "updated_at": "2025-11-30T19:31:32.286669Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 77,
+      "iid": 77,
+      "title": "Database Sharding",
+      "description": "[MEDIUM] Implementar sharding en base de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-29T19:31:32.286671Z",
+      "updated_at": "2025-11-29T19:31:32.286671Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 78,
+      "iid": 78,
+      "title": "Database Sharding - Parte 2",
+      "description": "[MEDIUM] Implementar sharding en base de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-28T19:31:32.286673Z",
+      "updated_at": "2025-11-28T19:31:32.286673Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 79,
+      "iid": 79,
+      "title": "Read Replicas",
+      "description": "[MEDIUM] Configurar réplicas para lectura. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-27T19:31:32.286675Z",
+      "updated_at": "2025-11-27T19:31:32.286675Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 80,
+      "iid": 80,
+      "title": "Read Replicas - Parte 2",
+      "description": "[MEDIUM] Configurar réplicas para lectura. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-26T19:31:32.286677Z",
+      "updated_at": "2025-11-26T19:31:32.286677Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 81,
+      "iid": 81,
+      "title": "Failover Automático",
+      "description": "[MEDIUM] Failover automático entre datacenters. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-25T19:31:32.286679Z",
+      "updated_at": "2025-11-25T19:31:32.286679Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 82,
+      "iid": 82,
+      "title": "Failover Automático - Parte 2",
+      "description": "[MEDIUM] Failover automático entre datacenters. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-24T19:31:32.286681Z",
+      "updated_at": "2025-11-24T19:31:32.286681Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 83,
+      "iid": 83,
+      "title": "Load Balancing",
+      "description": "[MEDIUM] Balanceo de carga mejorado. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-23T19:31:32.286683Z",
+      "updated_at": "2025-11-23T19:31:32.286683Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 84,
+      "iid": 84,
+      "title": "Load Balancing - Parte 2",
+      "description": "[MEDIUM] Balanceo de carga mejorado. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-22T19:31:32.286685Z",
+      "updated_at": "2025-11-22T19:31:32.286685Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 85,
+      "iid": 85,
+      "title": "Auto-scaling",
+      "description": "[MEDIUM] Auto-scaling basado en métricas. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-21T19:31:32.286687Z",
+      "updated_at": "2025-11-21T19:31:32.286687Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 86,
+      "iid": 86,
+      "title": "Auto-scaling - Parte 2",
+      "description": "[MEDIUM] Auto-scaling basado en métricas. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-20T19:31:32.286689Z",
+      "updated_at": "2025-11-20T19:31:32.286689Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 87,
+      "iid": 87,
+      "title": "Resource Limits",
+      "description": "[MEDIUM] Límites de recursos por usuario. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-19T19:31:32.286692Z",
+      "updated_at": "2025-11-19T19:31:32.286692Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 88,
+      "iid": 88,
+      "title": "Resource Limits - Parte 2",
+      "description": "[MEDIUM] Límites de recursos por usuario. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-18T19:31:32.286693Z",
+      "updated_at": "2025-11-18T19:31:32.286693Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 89,
+      "iid": 89,
+      "title": "Queue Management",
+      "description": "[MEDIUM] Sistema de colas para tareas async. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-17T19:31:32.286696Z",
+      "updated_at": "2025-11-17T19:31:32.286696Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 90,
+      "iid": 90,
+      "title": "Queue Management - Parte 2",
+      "description": "[MEDIUM] Sistema de colas para tareas async. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-16T19:31:32.286698Z",
+      "updated_at": "2025-11-16T19:31:32.286698Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 91,
+      "iid": 91,
+      "title": "Job Scheduling",
+      "description": "[MEDIUM] Scheduler para tareas periódicas. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-15T19:31:32.286700Z",
+      "updated_at": "2025-12-15T19:31:32.286700Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 92,
+      "iid": 92,
+      "title": "Job Scheduling - Parte 2",
+      "description": "[MEDIUM] Scheduler para tareas periódicas. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-14T19:31:32.286701Z",
+      "updated_at": "2025-12-14T19:31:32.286701Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 93,
+      "iid": 93,
+      "title": "Batch Processing",
+      "description": "[MEDIUM] Procesamiento en batch optimizado. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-13T19:31:32.286704Z",
+      "updated_at": "2025-12-13T19:31:32.286704Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 94,
+      "iid": 94,
+      "title": "Batch Processing - Parte 2",
+      "description": "[MEDIUM] Procesamiento en batch optimizado. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-12T19:31:32.286705Z",
+      "updated_at": "2025-12-12T19:31:32.286705Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 95,
+      "iid": 95,
+      "title": "Stream Processing",
+      "description": "[MEDIUM] Procesamiento de streams en tiempo real. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-11T19:31:32.286708Z",
+      "updated_at": "2025-12-11T19:31:32.286708Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 96,
+      "iid": 96,
+      "title": "Stream Processing - Parte 2",
+      "description": "[MEDIUM] Procesamiento de streams en tiempo real. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-10T19:31:32.286709Z",
+      "updated_at": "2025-12-10T19:31:32.286709Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 97,
+      "iid": 97,
+      "title": "Event Sourcing",
+      "description": "[MEDIUM] Implementar event sourcing. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-09T19:31:32.286712Z",
+      "updated_at": "2025-12-09T19:31:32.286712Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 98,
+      "iid": 98,
+      "title": "Event Sourcing - Parte 2",
+      "description": "[MEDIUM] Implementar event sourcing. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-08T19:31:32.286714Z",
+      "updated_at": "2025-12-08T19:31:32.286714Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 99,
+      "iid": 99,
+      "title": "CQRS Pattern",
+      "description": "[MEDIUM] Implementar patrón CQRS. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-07T19:31:32.286717Z",
+      "updated_at": "2025-12-07T19:31:32.286717Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 100,
+      "iid": 100,
+      "title": "CQRS Pattern - Parte 2",
+      "description": "[MEDIUM] Implementar patrón CQRS. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-06T19:31:32.286719Z",
+      "updated_at": "2025-12-06T19:31:32.286719Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 101,
+      "iid": 101,
+      "title": "Saga Pattern",
+      "description": "[MEDIUM] Transacciones distribuidas con Saga. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-05T19:31:32.286722Z",
+      "updated_at": "2025-12-05T19:31:32.286722Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 102,
+      "iid": 102,
+      "title": "Saga Pattern - Parte 2",
+      "description": "[MEDIUM] Transacciones distribuidas con Saga. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-04T19:31:32.286724Z",
+      "updated_at": "2025-12-04T19:31:32.286724Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 103,
+      "iid": 103,
+      "title": "Eventually Consistent",
+      "description": "[MEDIUM] Eventual consistency para mejor performance. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-03T19:31:32.286727Z",
+      "updated_at": "2025-12-03T19:31:32.286727Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 104,
+      "iid": 104,
+      "title": "Eventually Consistent - Parte 2",
+      "description": "[MEDIUM] Eventual consistency para mejor performance. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-12-02T19:31:32.286729Z",
+      "updated_at": "2025-12-02T19:31:32.286729Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 105,
+      "iid": 105,
+      "title": "Data Versioning",
+      "description": "[MEDIUM] Control de versiones de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-12-01T19:31:32.286731Z",
+      "updated_at": "2025-12-01T19:31:32.286731Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 106,
+      "iid": 106,
+      "title": "Data Versioning - Parte 2",
+      "description": "[MEDIUM] Control de versiones de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-30T19:31:32.286733Z",
+      "updated_at": "2025-11-30T19:31:32.286733Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 107,
+      "iid": 107,
+      "title": "Schema Migration",
+      "description": "[MEDIUM] Migraciones de esquema sin downtime. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-29T19:31:32.286735Z",
+      "updated_at": "2025-11-29T19:31:32.286735Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 108,
+      "iid": 108,
+      "title": "Schema Migration - Parte 2",
+      "description": "[MEDIUM] Migraciones de esquema sin downtime. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-28T19:31:32.286737Z",
+      "updated_at": "2025-11-28T19:31:32.286737Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 109,
+      "iid": 109,
+      "title": "Data Archival",
+      "description": "[MEDIUM] Archival de datos históricos. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-27T19:31:32.286739Z",
+      "updated_at": "2025-11-27T19:31:32.286739Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 110,
+      "iid": 110,
+      "title": "Data Archival - Parte 2",
+      "description": "[MEDIUM] Archival de datos históricos. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-26T19:31:32.286741Z",
+      "updated_at": "2025-11-26T19:31:32.286741Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 111,
+      "iid": 111,
+      "title": "GDPR Compliance",
+      "description": "[MEDIUM] Cumplimiento de GDPR. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-25T19:31:32.286743Z",
+      "updated_at": "2025-11-25T19:31:32.286743Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 112,
+      "iid": 112,
+      "title": "GDPR Compliance - Parte 2",
+      "description": "[MEDIUM] Cumplimiento de GDPR. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-24T19:31:32.286745Z",
+      "updated_at": "2025-11-24T19:31:32.286745Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 113,
+      "iid": 113,
+      "title": "Data Retention",
+      "description": "[MEDIUM] Política de retención de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-23T19:31:32.286747Z",
+      "updated_at": "2025-11-23T19:31:32.286747Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 114,
+      "iid": 114,
+      "title": "Data Retention - Parte 2",
+      "description": "[MEDIUM] Política de retención de datos. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-22T19:31:32.286749Z",
+      "updated_at": "2025-11-22T19:31:32.286749Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 115,
+      "iid": 115,
+      "title": "PII Protection",
+      "description": "[MEDIUM] Protección de datos personales. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-21T19:31:32.286751Z",
+      "updated_at": "2025-11-21T19:31:32.286751Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 116,
+      "iid": 116,
+      "title": "PII Protection - Parte 2",
+      "description": "[MEDIUM] Protección de datos personales. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-20T19:31:32.286753Z",
+      "updated_at": "2025-11-20T19:31:32.286753Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 117,
+      "iid": 117,
+      "title": "Audit Logging",
+      "description": "[MEDIUM] Logging de auditoría completo. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-19T19:31:32.286756Z",
+      "updated_at": "2025-11-19T19:31:32.286756Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 118,
+      "iid": 118,
+      "title": "Audit Logging - Parte 2",
+      "description": "[MEDIUM] Logging de auditoría completo. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-18T19:31:32.286759Z",
+      "updated_at": "2025-11-18T19:31:32.286759Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 119,
+      "iid": 119,
+      "title": "Change Tracking",
+      "description": "[MEDIUM] Seguimiento de cambios en datos. Este es un ticket generado para pruebas del agente.",
+      "state": "closed",
+      "created_at": "2025-11-17T19:31:32.286761Z",
+      "updated_at": "2025-11-17T19:31:32.286761Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    },
+    {
+      "id": 120,
+      "iid": 120,
+      "title": "Change Tracking - Parte 2",
+      "description": "[MEDIUM] Seguimiento de cambios en datos. Este es un ticket generado para pruebas del agente.",
+      "state": "opened",
+      "created_at": "2025-11-16T19:31:32.286763Z",
+      "updated_at": "2025-11-16T19:31:32.286763Z",
+      "labels": [
+        "testing",
+        "agente-ia",
+        "feature"
+      ]
+    }
+  ]
+}

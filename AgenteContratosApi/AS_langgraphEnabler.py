@@ -10,13 +10,11 @@ import json
 import re
 import yaml
 import logging
-from enum import Enum
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import defaultdict
 import traceback
-from urllib.parse import urlparse
 
 # LLM imports
 try:
@@ -53,114 +51,12 @@ logging.basicConfig(
     format='%(levelname)s:%(name)s:%(message)s'
 )
 
-# ========================================================================
-# CONFIGURACIÓN Y ENUMS
-# ========================================================================
-
-class RepositoryPlatform(str, Enum):
-    GITLAB = "gitlab"
-    GITHUB = "github"
-    AZURE_DEVOPS = "azure_devops"
-    UNKNOWN = "unknown"
-
 # ============================================================
 # CONFIGURACIÓN DE SALIDA
 # ============================================================
 
 OUT_DIR = os.environ.get("OUT_DIR", "./out/api_topology")
 os.makedirs(OUT_DIR, exist_ok=True)
-
-# ========================================================================
-# UTILIDADES
-# ========================================================================
-
-class PlatformDetector:
-    """Detecta y parsea URLs de GitLab, GitHub y Azure DevOps"""
-    
-    @staticmethod
-    def detect_platform(url: str) -> RepositoryPlatform:
-        """Detecta si una URL es de GitLab, GitHub, Azure DevOps u otra plataforma"""
-        try:
-            parsed = urlparse(url)
-            hostname = parsed.hostname or parsed.netloc
-            
-            if "github.com" in hostname:
-                return RepositoryPlatform.GITHUB
-            elif "dev.azure.com" in hostname or "visualstudio.com" in hostname:
-                return RepositoryPlatform.AZURE_DEVOPS
-            elif "gitlab" in hostname or "git" in hostname.lower():
-                # Si contiene "gitlab" o "git" en el hostname, asumir que es GitLab
-                return RepositoryPlatform.GITLAB
-            else:
-                # Por defecto, asumir GitLab para cualquier URL no identificada
-                return RepositoryPlatform.GITLAB
-        except Exception:
-            return RepositoryPlatform.GITLAB
-    
-    @staticmethod
-    def get_api_url(url: str) -> str:
-        """Extrae la URL base de la API"""
-        try:
-            parsed = urlparse(url)
-            hostname = parsed.hostname or parsed.netloc
-            
-            if "github.com" in hostname:
-                return "https://api.github.com"
-            elif "dev.azure.com" in hostname or "visualstudio.com" in hostname:
-                # Azure DevOps API
-                return "https://dev.azure.com"
-            elif "gitlab" in hostname:
-                # Para GitLab, usa la URL base del servidor
-                scheme = parsed.scheme or "https"
-                return f"{scheme}://{hostname}"
-            else:
-                return url
-        except Exception:
-            return url
-
-class GitLabUtils:
-    SEMVER_RE = re.compile(r"^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:[-+].*)?$")
-
-    @staticmethod
-    def utcnow() -> datetime:
-        return datetime.now(timezone.utc)
-
-    @staticmethod
-    def parse_iso(dt_str: str) -> datetime:
-        try:
-            return datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
-        except Exception:
-            # fallback común en GitLab
-            from datetime import datetime as dt
-            return dt.strptime(dt_str, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
-
-    @staticmethod
-    def days_ago(dt: datetime) -> int:
-        return (GitLabUtils.utcnow() - dt).days
-
-    @staticmethod
-    def is_semver(tag_name: str) -> bool:
-        return GitLabUtils.SEMVER_RE.match(tag_name) is not None
-
-    @staticmethod
-    def save_json(obj: Any, path: str):
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(obj, f, ensure_ascii=False, indent=2)
-
-    @staticmethod
-    def gl_list_all(func, **kwargs) -> List:
-        page = 1
-        per_page = kwargs.pop("per_page", 100)
-        acc = []
-        while True:
-            items = func(page=page, per_page=per_page, **kwargs)
-            if not items:
-                break
-            acc.extend(items)
-            if len(items) < per_page:
-                break
-            page += 1
-        return acc
 
 # ============================================================
 # UTILIDADES DE GUARDADO
@@ -253,12 +149,8 @@ class RepositoryAgent:
         """
         self.config = config
         # Soportar diferentes nombres de parámetros
-        # Detectar plataforma
-        repository_url =  config.get('url')
-        self.repo_type = PlatformDetector.detect_platform(repository_url)
-        self.repo_url = PlatformDetector.get_api_url(repository_url)
-        # self.repo_type = config.get('repo_type', 'gitlab')
-        # self.repo_url = config.get('url') or config.get('repo_url', 'https://gitlab.com')
+        self.repo_type = config.get('repo_type', 'gitlab')
+        self.repo_url = config.get('url') or config.get('repo_url', 'https://gitlab.com')
         self.token = config.get('token')
         
         # Cargar project_path del config o del .env
@@ -1058,6 +950,33 @@ class RepositoryAgent:
             endpoints_by_project[project]['apis'] += 1
             endpoints_by_project[project]['endpoints'] += len(contract.get('endpoints', []))
         
+        # Generar resúmenes adicionales para el dashboard
+        summary_by_method = defaultdict(int)
+        for contract in self.normalized_contracts:
+            for endpoint in contract.get('endpoints', []):
+                method = endpoint.get('method', 'GET').upper()
+                summary_by_method[method] += 1
+        
+        security_analysis = {
+            'authentication_methods': defaultdict(int),
+            'total_secured': 0,
+            'total_unsecured': 0
+        }
+        
+        for contract in self.normalized_contracts:
+            auths = contract.get('authentication', [])
+            # Si viene de especificaciones, mirar security schemes
+            if not auths and contract.get('security'): # Check at endpoint level if needed, but for now spec level
+                 pass # Simple check
+            
+            # Simplificación: conteo basico
+            if auths:
+                for auth in auths:
+                    security_analysis['authentication_methods'][auth] += 1
+                security_analysis['total_secured'] += 1
+            else:
+                security_analysis['total_unsecured'] += 1
+
         catalog = {
             'metadata': {
                 'generated_at': datetime.now(timezone.utc).isoformat(),
@@ -1070,7 +989,13 @@ class RepositoryAgent:
                 'REST': len([c for c in self.normalized_contracts if c['type'] == 'REST']),
                 'SOAP': len([c for c in self.normalized_contracts if c['type'] == 'SOAP'])
             },
-            'summary_by_project': dict(endpoints_by_project)
+            'summary_by_project': dict(endpoints_by_project),
+            'summary_by_method': dict(summary_by_method),
+            'security_analysis': {
+                'authentication_methods': dict(security_analysis['authentication_methods']),
+                'total_secured': security_analysis['total_secured'],
+                'total_unsecured': security_analysis['total_unsecured']
+            }
         }
         
         # Generar documentación

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>API Analysis - Dashboard</title>
@@ -8,43 +9,228 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui; background: #0f172a; color: #e2e8f0; padding: 20px; }
-    header { background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #334155; }
-    h1 { font-size: 32px; color: #6366f1; }
-    .subtitle { color: #94a3b8; margin-top: 5px; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; margin: 20px 0; }
-    h2 { font-size: 20px; margin: 20px 0 15px 0; color: #cbd5e1; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-    .metric { background: #0f172a; padding: 15px; border-radius: 6px; border-left: 3px solid #6366f1; }
-    .metric-label { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
-    .metric-value { font-size: 28px; font-weight: bold; color: #6366f1; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
-    th { background: #0f172a; font-weight: 600; color: #cbd5e1; }
-    tr:hover { background: #0f172a; }
-    .section { margin: 30px 0; }
-    .loader { text-align: center; padding: 40px; }
-    .spinner { border: 4px solid #334155; border-top: 4px solid #6366f1; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .error { color: #ef4444; }
-    .success { color: #10b981; }
-    .json-view { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 15px; overflow-x: auto; font-family: monospace; font-size: 12px; color: #94a3b8; max-height: 400px; overflow-y: auto; }
-    button { padding: 10px 20px; background: #6366f1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; margin-right: 10px; margin-top: 5px; }
-    button:hover { background: #4f46e5; }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-    .llm-section { background: #0f172a; padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6; }
-    .llm-content { margin-top: 15px; line-height: 1.6; color: #cbd5e1; white-space: pre-wrap; }
-    .llm-loading { text-align: center; padding: 20px; }
-    .tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-    .tab-btn { padding: 8px 16px; background: #334155; color: #e2e8f0; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
-    .tab-btn.active { background: #6366f1; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px;
+    }
+
+    header {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #334155;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #6366f1;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 20px 0 15px 0;
+      color: #cbd5e1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .metric {
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 3px solid #6366f1;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #6366f1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #334155;
+    }
+
+    th {
+      background: #0f172a;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    tr:hover {
+      background: #0f172a;
+    }
+
+    .section {
+      margin: 30px 0;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      border: 4px solid #334155;
+      border-top: 4px solid #6366f1;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error {
+      color: #ef4444;
+    }
+
+    .success {
+      color: #10b981;
+    }
+
+    .json-view {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 15px;
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background: #4f46e5;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .llm-section {
+      background: #0f172a;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #8b5cf6;
+    }
+
+    .llm-content {
+      margin-top: 15px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+    }
+
+    .llm-loading {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #334155;
+      color: #e2e8f0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .tab-btn.active {
+      background: #6366f1;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -63,11 +249,37 @@
         <div class="grid" id="summary-grid"></div>
       </div>
 
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+        <div class="card">
+          <h2>📊 Distribución de Métodos HTTP</h2>
+          <div id="methods-chart" style="margin-top: 20px;">
+            <div id="methods-grid" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>🛡️ Análisis de Seguridad</h2>
+          <div id="security-stats" style="margin-top: 20px;">
+            <div class="metric-label">APIs Seguras vs No Seguras</div>
+            <div
+              style="display:flex; height:20px; background:#334155; border-radius:4px; overflow:hidden; margin-bottom:15px;"
+              id="security-bar"></div>
+            <div id="auth-methods-grid" class="grid"
+              style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="card section" id="specs-section" style="display: none;">
         <h2>📄 Especificaciones Encontradas</h2>
         <table id="specs-table">
           <thead>
-            <tr><th>Nombre</th><th>Tipo</th><th>Endpoints</th><th>Versión</th></tr>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Endpoints</th>
+              <th>Versión</th>
+            </tr>
           </thead>
           <tbody id="specs-tbody"></tbody>
         </table>
@@ -82,17 +294,23 @@
         </div>
         <div id="insights" class="tab-content active">
           <div class="llm-section" id="insights-content">
-            <div class="llm-loading"><div class="spinner"></div> Generando insights...</div>
+            <div class="llm-loading">
+              <div class="spinner"></div> Generando insights...
+            </div>
           </div>
         </div>
         <div id="recommendations" class="tab-content">
           <div class="llm-section" id="recommendations-content">
-            <div class="llm-loading"><div class="spinner"></div> Generando recomendaciones...</div>
+            <div class="llm-loading">
+              <div class="spinner"></div> Generando recomendaciones...
+            </div>
           </div>
         </div>
         <div id="risks" class="tab-content">
           <div class="llm-section" id="risks-content">
-            <div class="llm-loading"><div class="spinner"></div> Analizando riesgos...</div>
+            <div class="llm-loading">
+              <div class="spinner"></div> Analizando riesgos...
+            </div>
           </div>
         </div>
       </div>
@@ -115,12 +333,12 @@
 
   <script>
     if ('caches' in window) {
-      caches.keys().then(function(cacheNames) {
-        cacheNames.forEach(function(cacheName) { caches.delete(cacheName); });
+      caches.keys().then(function (cacheNames) {
+        cacheNames.forEach(function (cacheName) { caches.delete(cacheName); });
       });
     }
     sessionStorage.clear();
-    
+
     var CACHE_BUSTER = Date.now();
     var API = 'http://127.0.0.1:8001';
     var jobId = new URLSearchParams(window.location.search).get('job');
@@ -128,8 +346,8 @@
     var analysisData = null;
 
     function switchTab(tab) {
-      document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
-      document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function (el) { el.classList.remove('active'); });
+      document.querySelectorAll('.tab-btn').forEach(function (el) { el.classList.remove('active'); });
       document.getElementById(tab).classList.add('active');
       document.querySelector('button[onclick="switchTab(\'' + tab + '\')"]').classList.add('active');
     }
@@ -140,19 +358,19 @@
         var analysis = analysisData.analysis_data || analysisData;
         var summary = analysis.api_summary || {};
         var context = 'Especificaciones: ' + (summary.total_specs || 0) + ', APIs en Código: ' + (summary.total_code_apis || 0) + ', Endpoints: ' + (summary.total_endpoints || 0);
-        
+
         fetch(API + '/api/v1/jobs/' + jobId + '/llm-analysis?v=' + CACHE_BUSTER, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ context: context })
-        }).then(function(res) {
+        }).then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.json();
-        }).then(function(result) {
+        }).then(function (result) {
           document.getElementById('insights-content').innerHTML = '<div class="llm-content">' + (result.insights || 'Sin insights') + '</div>';
           document.getElementById('recommendations-content').innerHTML = '<div class="llm-content">' + (result.recommendations || 'Sin recomendaciones') + '</div>';
           document.getElementById('risks-content').innerHTML = '<div class="llm-content">' + (result.risks || 'Sin riesgos') + '</div>';
-        }).catch(function(e) {
+        }).catch(function (e) {
           console.error('Error LLM:', e);
           document.getElementById('insights-content').innerHTML = '<p class="error">Error generando análisis</p>';
         });
@@ -167,7 +385,7 @@
         var analysis = analysisData.analysis_data || analysisData;
         var summary = analysis.api_summary || {};
         var zip = new JSZip();
-        
+
         // CSV 1: Resumen
         var summaryCSV = 'Métrica,Valor\n';
         summaryCSV += 'Especificaciones,' + (summary.total_specs || 0) + '\n';
@@ -177,33 +395,33 @@
         summaryCSV += 'GraphQL,' + (summary.api_types?.graphql || 0) + '\n';
         summaryCSV += 'gRPC,' + (summary.api_types?.grpc || 0) + '\n';
         zip.file('01_Resumen.csv', summaryCSV);
-        
+
         // CSV 2: Endpoints detallados (estructura del catálogo)
         var endpointsCSV = 'Proyecto,Tipo Especificación,Título API,Versión,Path,Método,Parámetros\n';
         if (analysis.specs && analysis.specs.length > 0) {
-          analysis.specs.forEach(function(spec) {
+          analysis.specs.forEach(function (spec) {
             var project = (spec.project || '').replace(/"/g, '""');
             var specType = (spec.spec_type || 'OpenAPI').replace(/"/g, '""');
             var apiTitle = (spec.api_title || '').replace(/"/g, '""');
             var apiVersion = (spec.api_version || '-').replace(/"/g, '""');
             var endpoints = spec.endpoints || [];
-            
-            endpoints.forEach(function(endpoint) {
+
+            endpoints.forEach(function (endpoint) {
               var path = (endpoint.path || '').replace(/"/g, '""');
               var method = (endpoint.method || '').replace(/"/g, '""');
               var paramCount = (endpoint.parameters || []).length;
-              
+
               var row = '"' + project + '","' + specType + '","' + apiTitle + '","' + apiVersion + '","' + path + '","' + method + '",' + paramCount + '\n';
               endpointsCSV += row;
             });
           });
         }
         zip.file('02_Endpoints_Detallados.csv', endpointsCSV);
-        
+
         // CSV 3: APIs en Código
         var codeApisCSV = 'Nombre,Tipo,Archivo,Descripción,Ubicación\n';
         if (analysis.code_apis && analysis.code_apis.length > 0) {
-          analysis.code_apis.forEach(function(api) {
+          analysis.code_apis.forEach(function (api) {
             var name = (api.service_name || api.api_name || '').replace(/"/g, '""');
             var type = (api.api_type || '').replace(/"/g, '""');
             var file = (api.file_path || '').replace(/"/g, '""');
@@ -214,9 +432,9 @@
           });
         }
         zip.file('03_APIs_en_Codigo.csv', codeApisCSV);
-        
+
         // Generar y descargar ZIP
-        zip.generateAsync({type: 'blob'}).then(function(content) {
+        zip.generateAsync({ type: 'blob' }).then(function (content) {
           saveAs(content, 'api-analysis-' + jobId.slice(0, 8) + '.zip');
         });
       } catch (e) {
@@ -231,15 +449,15 @@
       }
 
       fetch(API + '/api/v1/jobs/' + jobId + '/analysis?v=' + CACHE_BUSTER)
-        .then(function(res) {
+        .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.json();
         })
-        .then(function(data) {
+        .then(function (data) {
           analysisData = data;
           var analysis = data.analysis_data || data;
           var summary = analysis.api_summary || {};
-          
+
           var metrics = [
             { label: 'Especificaciones', value: summary.total_specs || 0 },
             { label: 'APIs en Código', value: summary.total_code_apis || 0 },
@@ -249,13 +467,13 @@
             { label: 'gRPC', value: summary.api_types?.grpc || 0 }
           ];
           var grid = document.getElementById('summary-grid');
-          grid.innerHTML = metrics.map(function(m) {
+          grid.innerHTML = metrics.map(function (m) {
             return '<div class="metric"><div class="metric-label">' + m.label + '</div><div class="metric-value">' + m.value + '</div></div>';
           }).join('');
 
           if (analysis.specs && analysis.specs.length > 0) {
             var tbody = document.getElementById('specs-tbody');
-            tbody.innerHTML = analysis.specs.map(function(spec) {
+            tbody.innerHTML = analysis.specs.map(function (spec) {
               return '<tr><td>' + (spec.spec_title || spec.file_path || 'Spec') + '</td><td>' + (spec.spec_type || 'OpenAPI') + '</td><td>' + ((spec.endpoints || []).length) + '</td><td>' + (spec.spec_version || '-') + '</td></tr>';
             }).join('');
             document.getElementById('specs-section').style.display = 'block';
@@ -265,10 +483,10 @@
           document.getElementById('subtitle').textContent = 'Análisis completado';
           document.getElementById('loading').style.display = 'none';
           document.getElementById('content').style.display = 'block';
-          
+
           generateLLMAnalysis();
         })
-        .catch(function(e) {
+        .catch(function (e) {
           console.error('Error:', e);
           document.getElementById('loading').innerHTML = '<p class="error">Error: ' + e.message + '</p>';
         });
@@ -277,4 +495,5 @@
     window.addEventListener('load', loadDashboard);
   </script>
 </body>
+
 </html>

@@ -1,0 +1,387 @@
+INFO:     Started server process [69252]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8002 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55113 - "GET /health HTTP/1.1" 200 OK
+INFO:api:📨 Solicitud recibida. URL: https://umane.emeal.nttdata.com/git, Token: ***
+INFO:api:   Datos: {'gitlab_url': 'https://umane.emeal.nttdata.com/git', 'repository_url': None, 'gitlab_token': 'sebwvkV21gB-gpK12j1y', 'token': None, 'project_path': None, 'group_path': None, 'auto_discover_groups': True, 'analysis_mode': 'full', 'use_ai_analysis': True, 'active_days': 30, 'stale_days': 90, 'repo_type': 'gitlab', 'use_ai': True}
+INFO:api:🚀 Iniciando análisis de APIs - Job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   GitLab URL: https://umane.emeal.nttdata.com/git
+INFO:api:   Modo: full
+INFO:api:   Análisis IA: True
+INFO:     127.0.0.1:55159 - "POST /api/v1/analyze HTTP/1.1" 200 OK
+INFO:api:📊 Iniciando análisis para job 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: pending, Progress: 0.0
+INFO:     127.0.0.1:55161 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:🔧 Creando orquestador para job 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Configuración del agente: project_path=None, group_path=None, auto_discover=True
+INFO:AS_langgraphEnabler:✅ Conectado a GitLab
+WARNING:AS_langgraphEnabler:⚠️ langchain_openai no está disponible
+INFO:AS_langgraphEnabler:✅ Agente inicializado para gitlab
+INFO:api:✅ Orquestador creado para job 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:🚀 Iniciando análisis de APIs para job 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:AS_langgraphEnabler:🚀 Iniciando análisis completo...
+INFO:AS_langgraphEnabler:📋 Escaneando especificaciones de API...
+INFO:AS_langgraphEnabler:📦 Auto-discovery: 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55164 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55170 - "GET /health HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55176 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ SWAGGER: context_resources/openapi_v2.yaml
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55180 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 1 especificaciones encontradas
+INFO:AS_langgraphEnabler:💻 Escaneando código fuente...
+INFO:AS_langgraphEnabler:📦 Auto-discovery (código): 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55184 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55199 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📨 Solicitud recibida. URL: https://umane.emeal.nttdata.com/git, Token: ***
+INFO:api:   Datos: {'gitlab_url': 'https://umane.emeal.nttdata.com/git', 'repository_url': None, 'gitlab_token': 'sebwvkV21gB-gpK12j1y', 'token': None, 'project_path': None, 'group_path': None, 'auto_discover_groups': True, 'analysis_mode': 'full', 'use_ai_analysis': True, 'active_days': 30, 'stale_days': 90, 'repo_type': 'gitlab', 'use_ai': True}
+INFO:api:🚀 Iniciando análisis de APIs - Job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   GitLab URL: https://umane.emeal.nttdata.com/git
+INFO:api:   Modo: full
+INFO:api:   Análisis IA: True
+INFO:     127.0.0.1:55203 - "POST /api/v1/analyze HTTP/1.1" 200 OK
+INFO:api:📊 Iniciando análisis para job 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:🔧 Creando orquestador para job 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Configuración del agente: project_path=None, group_path=None, auto_discover=True
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.05
+INFO:     127.0.0.1:55205 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:✅ Conectado a GitLab
+WARNING:AS_langgraphEnabler:⚠️ langchain_openai no está disponible
+INFO:AS_langgraphEnabler:✅ Agente inicializado para gitlab
+INFO:api:✅ Orquestador creado para job 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:🚀 Iniciando análisis de APIs para job 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:AS_langgraphEnabler:🚀 Iniciando análisis completo...
+INFO:AS_langgraphEnabler:📋 Escaneando especificaciones de API...
+INFO:AS_langgraphEnabler:📦 Auto-discovery: 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55208 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55210 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ SWAGGER: context_resources/openapi_v2.yaml
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55214 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55216 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55219 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55224 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 1 especificaciones encontradas
+INFO:AS_langgraphEnabler:💻 Escaneando código fuente...
+INFO:AS_langgraphEnabler:📦 Auto-discovery (código): 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55226 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55228 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55230 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55233 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55235 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 9 archivos con APIs encontrados
+INFO:AS_langgraphEnabler:🗺️ Construyendo topología de APIs...
+INFO:AS_langgraphEnabler:📝 Normalizando contratos a OpenAPI 3.0...
+INFO:AS_langgraphEnabler:📚 Generando catálogo de APIs...
+INFO:AS_langgraphEnabler:📖 Generando documentación técnica...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/guia_rapida_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/mapa_endpoints.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/politicas_seguridad.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/guia_versionamiento.json
+INFO:AS_langgraphEnabler:   ✅ Documentación generada
+INFO:AS_langgraphEnabler:📊 Generando reportes finales...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/topologia_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/contratos_normalizados.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/666012f8-3924-4f7a-adc5-2321c4983913/resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:🔌 RESUMEN DE ANÁLISIS DE APIs
+INFO:AS_langgraphEnabler:================================================================================
+INFO:AS_langgraphEnabler:
+📊 ESTADÍSTICAS GENERALES:
+INFO:AS_langgraphEnabler:   • Especificaciones encontradas: 1
+INFO:AS_langgraphEnabler:   • Archivos de código con APIs: 9
+INFO:AS_langgraphEnabler:   • Contratos normalizados: 10
+INFO:AS_langgraphEnabler:   • Total de endpoints: 1129
+INFO:AS_langgraphEnabler:   • Dependencias detectadas: 0
+INFO:AS_langgraphEnabler:
+📋 DESGLOSE POR TIPO:
+INFO:AS_langgraphEnabler:   • OpenAPI/Swagger: 1
+INFO:AS_langgraphEnabler:   • Inferred from Code: 9
+INFO:AS_langgraphEnabler:
+🌐 TIPOS DE API:
+INFO:AS_langgraphEnabler:   • REST: 1129 endpoints
+INFO:AS_langgraphEnabler:   • SOAP: 0 endpoints
+INFO:AS_langgraphEnabler:
+📦 DESGLOSE POR PROYECTO:
+INFO:AS_langgraphEnabler:   • COITDEVSOCOEAPPSIA/crewai-nativeai:
+INFO:AS_langgraphEnabler:      └─ 10 API(s), 1129 endpoint(s)
+INFO:AS_langgraphEnabler:
+📁 ARCHIVOS GENERADOS EN: ./out/api_topology
+INFO:AS_langgraphEnabler:   • catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:   • topologia_apis.json
+INFO:AS_langgraphEnabler:   • contratos_normalizados.json
+INFO:AS_langgraphEnabler:   • resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:   • guia_rapida_apis.json
+INFO:AS_langgraphEnabler:   • mapa_endpoints.json
+INFO:AS_langgraphEnabler:   • politicas_seguridad.json
+INFO:AS_langgraphEnabler:   • guia_versionamiento.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:✅ Análisis completado exitosamente
+INFO:api:📊 Análisis completado. Success: True
+INFO:api:✅ Job 666012f8-3924-4f7a-adc5-2321c4983913 completado exitosamente
+INFO:api:📊 Especificaciones encontradas: 1
+INFO:api:💻 APIs en código: 9
+INFO:api:🔌 Total endpoints: 1129
+INFO:api:📁 Archivos generados: 8
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55237 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 666012f8-3924-4f7a-adc5-2321c4983913
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: completed, Progress: 1.0
+INFO:     127.0.0.1:55239 - "GET /api/v1/jobs/666012f8-3924-4f7a-adc5-2321c4983913 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55241 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55243 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55247 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55249 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 9 archivos con APIs encontrados
+INFO:AS_langgraphEnabler:🗺️ Construyendo topología de APIs...
+INFO:AS_langgraphEnabler:📝 Normalizando contratos a OpenAPI 3.0...
+INFO:AS_langgraphEnabler:📚 Generando catálogo de APIs...
+INFO:AS_langgraphEnabler:📖 Generando documentación técnica...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/guia_rapida_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/mapa_endpoints.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/politicas_seguridad.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/guia_versionamiento.json
+INFO:AS_langgraphEnabler:   ✅ Documentación generada
+INFO:AS_langgraphEnabler:📊 Generando reportes finales...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/topologia_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/contratos_normalizados.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59/resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:🔌 RESUMEN DE ANÁLISIS DE APIs
+INFO:AS_langgraphEnabler:================================================================================
+INFO:AS_langgraphEnabler:
+📊 ESTADÍSTICAS GENERALES:
+INFO:AS_langgraphEnabler:   • Especificaciones encontradas: 1
+INFO:AS_langgraphEnabler:   • Archivos de código con APIs: 9
+INFO:AS_langgraphEnabler:   • Contratos normalizados: 10
+INFO:AS_langgraphEnabler:   • Total de endpoints: 1129
+INFO:AS_langgraphEnabler:   • Dependencias detectadas: 0
+INFO:AS_langgraphEnabler:
+📋 DESGLOSE POR TIPO:
+INFO:AS_langgraphEnabler:   • OpenAPI/Swagger: 1
+INFO:AS_langgraphEnabler:   • Inferred from Code: 9
+INFO:AS_langgraphEnabler:
+🌐 TIPOS DE API:
+INFO:AS_langgraphEnabler:   • REST: 1129 endpoints
+INFO:AS_langgraphEnabler:   • SOAP: 0 endpoints
+INFO:AS_langgraphEnabler:
+📦 DESGLOSE POR PROYECTO:
+INFO:AS_langgraphEnabler:   • COITDEVSOCOEAPPSIA/crewai-nativeai:
+INFO:AS_langgraphEnabler:      └─ 10 API(s), 1129 endpoint(s)
+INFO:AS_langgraphEnabler:
+📁 ARCHIVOS GENERADOS EN: ./out/api_topology
+INFO:AS_langgraphEnabler:   • catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:   • topologia_apis.json
+INFO:AS_langgraphEnabler:   • contratos_normalizados.json
+INFO:AS_langgraphEnabler:   • resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:   • guia_rapida_apis.json
+INFO:AS_langgraphEnabler:   • mapa_endpoints.json
+INFO:AS_langgraphEnabler:   • politicas_seguridad.json
+INFO:AS_langgraphEnabler:   • guia_versionamiento.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:✅ Análisis completado exitosamente
+INFO:api:📊 Análisis completado. Success: True
+INFO:api:✅ Job 86d5b7d3-cefd-43e8-b93a-36eecaa6be59 completado exitosamente
+INFO:api:📊 Especificaciones encontradas: 1
+INFO:api:💻 APIs en código: 9
+INFO:api:🔌 Total endpoints: 1129
+INFO:api:📁 Archivos generados: 8
+INFO:api:📊 Solicitando status para job: 86d5b7d3-cefd-43e8-b93a-36eecaa6be59
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59']
+INFO:api:✅ Job encontrado. Status: completed, Progress: 1.0
+INFO:     127.0.0.1:55251 - "GET /api/v1/jobs/86d5b7d3-cefd-43e8-b93a-36eecaa6be59 HTTP/1.1" 200 OK
+INFO:api:📨 Solicitud recibida. URL: https://umane.emeal.nttdata.com/git, Token: ***
+INFO:api:   Datos: {'gitlab_url': 'https://umane.emeal.nttdata.com/git', 'repository_url': None, 'gitlab_token': 'sebwvkV21gB-gpK12j1y', 'token': None, 'project_path': None, 'group_path': None, 'auto_discover_groups': True, 'analysis_mode': 'full', 'use_ai_analysis': True, 'active_days': 30, 'stale_days': 90, 'repo_type': 'gitlab', 'use_ai': True}
+INFO:api:🚀 Iniciando análisis de APIs - Job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   GitLab URL: https://umane.emeal.nttdata.com/git
+INFO:api:   Modo: full
+INFO:api:   Análisis IA: True
+INFO:     127.0.0.1:55514 - "POST /api/v1/analyze HTTP/1.1" 200 OK
+INFO:api:📊 Iniciando análisis para job 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:🔧 Creando orquestador para job 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Configuración del agente: project_path=None, group_path=None, auto_discover=True
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.05
+INFO:     127.0.0.1:55516 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:✅ Conectado a GitLab
+WARNING:AS_langgraphEnabler:⚠️ langchain_openai no está disponible
+INFO:AS_langgraphEnabler:✅ Agente inicializado para gitlab
+INFO:api:✅ Orquestador creado para job 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:🚀 Iniciando análisis de APIs para job 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:AS_langgraphEnabler:🚀 Iniciando análisis completo...
+INFO:AS_langgraphEnabler:📋 Escaneando especificaciones de API...
+INFO:AS_langgraphEnabler:📦 Auto-discovery: 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55519 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ SWAGGER: context_resources/openapi_v2.yaml
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55523 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 1 especificaciones encontradas
+INFO:AS_langgraphEnabler:💻 Escaneando código fuente...
+INFO:AS_langgraphEnabler:📦 Auto-discovery (código): 1 proyectos encontrados
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55525 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55527 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55529 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55531 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55536 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: processing, Progress: 0.15
+INFO:     127.0.0.1:55539 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:AS_langgraphEnabler:   ✅ 9 archivos con APIs encontrados
+INFO:AS_langgraphEnabler:🗺️ Construyendo topología de APIs...
+INFO:AS_langgraphEnabler:📝 Normalizando contratos a OpenAPI 3.0...
+INFO:AS_langgraphEnabler:📚 Generando catálogo de APIs...
+INFO:AS_langgraphEnabler:📖 Generando documentación técnica...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/guia_rapida_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/mapa_endpoints.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/politicas_seguridad.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/guia_versionamiento.json
+INFO:AS_langgraphEnabler:   ✅ Documentación generada
+INFO:AS_langgraphEnabler:📊 Generando reportes finales...
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/topologia_apis.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/contratos_normalizados.json
+INFO:AS_langgraphEnabler:✅ Guardado: outputs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e/resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:🔌 RESUMEN DE ANÁLISIS DE APIs
+INFO:AS_langgraphEnabler:================================================================================
+INFO:AS_langgraphEnabler:
+📊 ESTADÍSTICAS GENERALES:
+INFO:AS_langgraphEnabler:   • Especificaciones encontradas: 1
+INFO:AS_langgraphEnabler:   • Archivos de código con APIs: 9
+INFO:AS_langgraphEnabler:   • Contratos normalizados: 10
+INFO:AS_langgraphEnabler:   • Total de endpoints: 1129
+INFO:AS_langgraphEnabler:   • Dependencias detectadas: 0
+INFO:AS_langgraphEnabler:
+📋 DESGLOSE POR TIPO:
+INFO:AS_langgraphEnabler:   • OpenAPI/Swagger: 1
+INFO:AS_langgraphEnabler:   • Inferred from Code: 9
+INFO:AS_langgraphEnabler:
+🌐 TIPOS DE API:
+INFO:AS_langgraphEnabler:   • REST: 1129 endpoints
+INFO:AS_langgraphEnabler:   • SOAP: 0 endpoints
+INFO:AS_langgraphEnabler:
+📦 DESGLOSE POR PROYECTO:
+INFO:AS_langgraphEnabler:   • COITDEVSOCOEAPPSIA/crewai-nativeai:
+INFO:AS_langgraphEnabler:      └─ 10 API(s), 1129 endpoint(s)
+INFO:AS_langgraphEnabler:
+📁 ARCHIVOS GENERADOS EN: ./out/api_topology
+INFO:AS_langgraphEnabler:   • catalogo_apis_completo.json
+INFO:AS_langgraphEnabler:   • topologia_apis.json
+INFO:AS_langgraphEnabler:   • contratos_normalizados.json
+INFO:AS_langgraphEnabler:   • resumen_ejecutivo.json
+INFO:AS_langgraphEnabler:   • guia_rapida_apis.json
+INFO:AS_langgraphEnabler:   • mapa_endpoints.json
+INFO:AS_langgraphEnabler:   • politicas_seguridad.json
+INFO:AS_langgraphEnabler:   • guia_versionamiento.json
+INFO:AS_langgraphEnabler:
+================================================================================
+INFO:AS_langgraphEnabler:✅ Análisis completado exitosamente
+INFO:api:📊 Análisis completado. Success: True
+INFO:api:✅ Job 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e completado exitosamente
+INFO:api:📊 Especificaciones encontradas: 1
+INFO:api:💻 APIs en código: 9
+INFO:api:🔌 Total endpoints: 1129
+INFO:api:📁 Archivos generados: 8
+INFO:api:📊 Solicitando status para job: 56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e
+INFO:api:   Jobs almacenados: ['666012f8-3924-4f7a-adc5-2321c4983913', '86d5b7d3-cefd-43e8-b93a-36eecaa6be59', '56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e']
+INFO:api:✅ Job encontrado. Status: completed, Progress: 1.0
+INFO:     127.0.0.1:55541 - "GET /api/v1/jobs/56efd2f2-2aa5-4f76-bac1-bd4bd7a64c5e HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [69252]

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Básico</title>
+  <style>
+    body { font-family: Arial; margin: 20px; background: #f0f0f0; }
+    .card { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; }
+    input { padding: 8px; margin: 5px 0; width: 100%; }
+    button { padding: 10px 20px; background: #0052cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #003d99; }
+    .stat { font-size: 2em; font-weight: bold; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>🧪 Test Simple de Renderizado</h1>
+  
+  <div class="card">
+    <h2>Formulario</h2>
+    <input type="text" id="repo-url" placeholder="URL del repositorio" value="https://umane.emeal.nttdata.com/git/COITDEVSOCOEAPPSIA/crewai-nativeai">
+    <input type="password" id="token" placeholder="Token" value="sebwvkV21gB-gpK12j1y">
+    <input type="text" id="project-path" placeholder="Project path" value="COITDEVSOCOEAPPSIA/crewai-nativeai">
+    <button onclick="handleSubmit()">Iniciar Análisis</button>
+    <div id="status" style="margin-top: 10px;"></div>
+  </div>
+
+  <div class="card" id="results" style="display:none;">
+    <h2>Resultados</h2>
+    <div>
+      <div>Total: <span class="stat" id="stat-total">0</span></div>
+      <div>Abiertos: <span class="stat" id="stat-opened">0</span></div>
+      <div>Cerrados: <span class="stat" id="stat-closed">0</span></div>
+    </div>
+  </div>
+
+  <script>
+    async function handleSubmit() {
+      const url = document.getElementById("repo-url").value;
+      const token = document.getElementById("token").value;
+      const projectPath = document.getElementById("project-path").value;
+      
+      console.log("📤 Enviando:", { url, token, projectPath });
+      
+      const response = await fetch("/api/v1/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          config: {
+            repository_url: url,
+            token: token,
+            project_path: projectPath,
+            ticket_states: ["opened", "closed"],
+            min_tickets: 5
+          }
+        })
+      });
+      
+      const job = await response.json();
+      console.log("✅ Job creado:", job.job_id);
+      
+      const jobId = job.job_id;
+      let completed = false;
+      let attempts = 0;
+      
+      while (!completed && attempts < 20) {
+        attempts++;
+        await new Promise(r => setTimeout(r, 1000));
+        
+        const statusResponse = await fetch(`/api/v1/jobs/${jobId}`);
+        const status = await statusResponse.json();
+        
+        console.log(`Intento ${attempts}: status=${status.status}, progress=${status.progress}%`);
+        document.getElementById("status").textContent = `${status.message} (${status.progress}%)`;
+        
+        if (status.status === "completed") {
+          console.log("✅ Completado!", status.data);
+          document.getElementById("results").style.display = "block";
+          document.getElementById("stat-total").textContent = status.data.total;
+          document.getElementById("stat-opened").textContent = status.data.opened;
+          document.getElementById("stat-closed").textContent = status.data.closed;
+          completed = true;
+        } else if (status.status === "failed") {
+          console.error("❌ Falló:", status.message);
+          document.getElementById("status").innerHTML = `<span class="error">❌ ${status.message}</span>`;
+          completed = true;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Runbook Generator Agent</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/web/style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>📋 Runbook Generator Agent</h1>
+    <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">
+      Analiza tickets históricos y genera Runbooks operativos estandarizados
+    </p>
+  </header>
+
+  <main id="app">
+    <section id="form-section" class="card">
+      <h2>🔍 Analizar Tickets Históricos</h2>
+      <form id="analyze-form" method="POST" action="javascript:void(0)">
+        <label>URL del Repositorio
+          <input type="text" name="repository_url" id="repository_url"
+            placeholder="https://umane.emeal.nttdata.com/git o https://umane.emeal.nttdata.com/git/NAMESPACE/proyecto"
+            required />
+        </label>
+
+        <label>Token de Autenticación
+          <input type="password" name="token" id="token" placeholder="TOKEN" required />
+        </label>
+
+        <details>
+          <summary>Opciones avanzadas</summary>
+
+          <label>Proyecto Específico (opcional)
+            <input type="text" name="project_path" id="project_path"
+              placeholder="namespace/proyecto o separados por coma: ns1/proj1,ns2/proj2" />
+          </label>
+
+          <label>Estados de Tickets a Analizar
+            <input type="text" name="ticket_states" id="ticket_states" placeholder="opened,closed"
+              value="opened,closed" />
+          </label>
+
+          <label>Mínimo de Tickets
+            <input type="number" name="min_tickets" id="min_tickets" placeholder="5" value="5" min="1" />
+          </label>
+        </details>
+
+        <button type="submit" id="startBtn">🚀 Iniciar Análisis</button>
+      </form>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="card" id="dashboard-actions"
+        style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button type="button" id="backBtn" style="background:#334155">← Volver</button>
+          <button type="button" id="reloadBtn" style="background:#334155">🔄 Recargar</button>
+          <button type="button" id="downloadJsonBtn" style="background:#0052cc">📥 Descargar Análisis</button>
+        </div>
+        <div id="dashboardPlatform" style="font-size:.7rem;color:#94a3b8"></div>
+      </div>
+
+      <!-- BARRA DE PROGRESO -->
+      <div id="progress-container" class="card" style="display:none">
+        <h3 style="margin:0 0 1rem 0">⏳ Analizando Tickets...</h3>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <div style="flex:1">
+            <div style="height:24px;background:#334155;border-radius:4px;overflow:hidden;position:relative">
+              <div id="progress-bar"
+                style="height:100%;background:linear-gradient(90deg,#0052cc,#0066ff);width:0%;transition:width 0.3s ease;display:flex;align-items:center;justify-content:center">
+                <span id="progress-text" style="color:white;font-size:0.75rem;font-weight:bold">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTADO -->
+      <div id="status" class="status"></div>
+
+      <!-- RESUMEN EJECUTIVO -->
+      <div class="card" id="summary"></div>
+
+      <!-- ESTADÍSTICAS -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem">
+        <div class="card" style="border-left:4px solid #10b981">
+          <h3 style="margin:0;color:#10b981">✅ Tickets Cerrados</h3>
+          <p id="stat-closed" style="font-size:2rem;font-weight:bold;margin:0.5rem 0">0</p>
+          <p style="margin:0;font-size:0.85rem;color:#94a3b8">Incidentes resueltos</p>
+        </div>
+
+        <div class="card" style="border-left:4px solid #f59e0b">
+          <h3 style="margin:0;color:#f59e0b">🔴 Tickets Abiertos</h3>
+          <p id="stat-opened" style="font-size:2rem;font-weight:bold;margin:0.5rem 0">0</p>
+          <p style="margin:0;font-size:0.85rem;color:#94a3b8">En progreso</p>
+        </div>
+
+        <div class="card" style="border-left:4px solid #0052cc">
+          <h3 style="margin:0;color:#0052cc">📊 Total Analizado</h3>
+          <p id="stat-total" style="font-size:2rem;font-weight:bold;margin:0.5rem 0">0</p>
+          <p style="margin:0;font-size:0.85rem;color:#94a3b8">Tickets procesados</p>
+        </div>
+      </div>
+
+      <!-- DISTRIBUCIÓN DE SEVERIDAD -->
+      <div class="card">
+        <h3>⚠️ Distribución de Severidad</h3>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem">
+          <div style="text-align:center;padding:1rem;background:#1e293b;border-radius:6px">
+            <div style="font-size:1.5rem;font-weight:bold;color:#ef4444" id="severity-critical">0</div>
+            <div style="font-size:0.8rem;color:#94a3b8;margin-top:0.5rem">Crítica</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:#1e293b;border-radius:6px">
+            <div style="font-size:1.5rem;font-weight:bold;color:#f97316" id="severity-high">0</div>
+            <div style="font-size:0.8rem;color:#94a3b8;margin-top:0.5rem">Alta</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:#1e293b;border-radius:6px">
+            <div style="font-size:1.5rem;font-weight:bold;color:#eab308" id="severity-medium">0</div>
+            <div style="font-size:0.8rem;color:#94a3b8;margin-top:0.5rem">Media</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:#1e293b;border-radius:6px">
+            <div style="font-size:1.5rem;font-weight:bold;color:#22c55e" id="severity-low">0</div>
+            <div style="font-size:0.8rem;color:#94a3b8;margin-top:0.5rem">Baja</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORÍAS DETECTADAS -->
+      <div class="card">
+        <h3>🏷️ Categorías Detectadas</h3>
+        <div id="categories"
+          style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-top:1rem">
+        </div>
+      </div>
+
+      <!-- RUNBOOK GENERADO CON IA -->
+      <div class="card" id="runbook-section" style="display:none">
+        <h3>📋 Runbook Generado con IA</h3>
+        <details open style="margin-top:1rem">
+          <summary
+            style="cursor:pointer;padding:0.75rem;background:#1e293b;border-radius:6px;font-weight:bold;color:#0052cc">
+            Ver Runbook Completo
+          </summary>
+          <div id="runbook-content"
+            style="margin-top:1rem;padding:1rem;background:#0f172a;border-radius:6px;color:#cbd5e1;line-height:1.8;white-space:pre-wrap;font-family:monospace;font-size:0.9rem;overflow-x:auto">
+          </div>
+        </details>
+
+        <!-- Botones de análisis LLM -->
+        <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+          <button onclick="analyzeLLM('security')"
+            style="background:#ef4444;border:none;color:white;padding:0.5rem 1rem;border-radius:4px;cursor:pointer">
+            🔒 Auditoría Seguridad
+          </button>
+          <button onclick="analyzeLLM('completeness')"
+            style="background:#0052cc;border:none;color:white;padding:0.5rem 1rem;border-radius:4px;cursor:pointer">
+            📋 Simplificar
+          </button>
+          <button onclick="analyzeLLM('simplification')"
+            style="background:#10b981;border:none;color:white;padding:0.5rem 1rem;border-radius:4px;cursor:pointer">
+            ✅ Verificar Completitud
+          </button>
+        </div>
+
+        <!-- Resultado del análisis LLM -->
+        <div id="llm-analysis-result"
+          style="display:none;margin-top:1rem;padding:1rem;background:#1e293b;border-radius:6px;border-left:4px solid #0052cc">
+          <h4 id="llm-analysis-title" style="margin:0 0 0.5rem 0;color:#0052cc"></h4>
+          <div id="llm-analysis-content" style="color:#cbd5e1;line-height:1.6;white-space:pre-wrap"></div>
+        </div>
+      </div>
+
+      <!-- TOP ISSUES RESUELTOS -->
+      <div class="card">
+        <h3>🔝 Top 10 Problemas Resueltos</h3>
+        <div id="top-issues" style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem">
+        </div>
+      </div>
+
+      <!-- INDICADORES DE CALIDAD -->
+      <div class="card">
+        <h3>📈 Indicadores de Calidad</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem">
+              <span>Tasa de Resolución</span>
+              <span id="resolution-rate" style="font-weight:bold">0%</span>
+            </div>
+            <div style="height:8px;background:#334155;border-radius:4px;overflow:hidden">
+              <div id="resolution-bar" style="height:100%;background:#10b981;width:0%"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem">
+              <span>Cobertura de Categorías</span>
+              <span id="category-coverage" style="font-weight:bold">0%</span>
+            </div>
+            <div style="height:8px;background:#334155;border-radius:4px;overflow:hidden">
+              <div id="category-bar" style="height:100%;background:#0052cc;width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIPCIÓN DE TICKETS A ANALIZAR -->
+      <div class="card">
+        <h3>📝 Descripción General</h3>
+        <div id="description" style="color:#cbd5e1;line-height:1.6"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/web/app.js"></script>
+</body>
+
+</html>
