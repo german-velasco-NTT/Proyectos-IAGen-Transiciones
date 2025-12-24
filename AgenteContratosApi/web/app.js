@@ -251,6 +251,7 @@ function renderDashboard(analysisData, jobId) {
   const analysis = analysisData.analysis_data || analysisData;
   const summary = analysis.summary || analysis.api_summary || {};
 
+  log(JSON.stringify(analysisData), 'success')
   // Renderizar resumen mejorado
   const summaryEl = document.getElementById('summary');
   if (summaryEl) {

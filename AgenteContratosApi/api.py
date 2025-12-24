@@ -416,7 +416,7 @@ async def get_job_analysis(job_id: str):
             with open(catalog_file, 'r', encoding='utf-8') as f:
                 catalog = json.load(f)
             
-            analysis_data["specs"] = catalog.get("specs", [])
+            analysis_data["catalogo_url"] = catalog.get("specs", [])
             analysis_data["code_apis"] = catalog.get("code_apis", [])
             analysis_data["api_summary"]["total_specs"] = catalog.get("total_specs", 0)
             analysis_data["api_summary"]["total_code_apis"] = catalog.get("total_code_files", 0)
@@ -438,6 +438,7 @@ async def get_job_analysis(job_id: str):
             with open(resumen_file, 'r', encoding='utf-8') as f:
                 resumen = json.load(f)
             # El resumen ya contiene información adicional
+            analysis_data["resumen_url"] = resumen_file
         
     except Exception as e:
         logger.error(f"❌ Error procesando análisis del job {job_id}: {e}")

@@ -112,35 +112,64 @@ def detect_platform(url: str) -> str:
         return "azure"
     return "unknown"
 
+def split_gitlab_base_and_project(repo_url: str) -> tuple[str, str | None]:
+    """
+    Retorna:
+      - gitlab_url: base (p.ej. https://host/git o https://host)
+      - project_path: 'grupo/proyecto' (sin '.git') o None si repo_url no lo incluye
+    """
+    parsed = urlparse(repo_url)
+    base = f"{parsed.scheme}://{parsed.netloc}"
+
+    # Path limpio (sin leading slash)
+    path = (parsed.path or "").lstrip("/")
+
+    # Normaliza sufijo literal ".git" (si aplica)
+    if path.endswith(".git"):
+        path = path[:-4]
+
+    # Segmentos
+    segments = [s for s in path.split("/") if s]  # elimina vacíos por '//' o trailing '/'
+
+    # Casos:
+    # 1) https://host/git/GRUPO/PROY
+    # 2) https://host/git
+    # 3) https://host/git/
+    if segments and segments[0] == "git":
+        gitlab_url = f"{base}/git"
+        project_segments = segments[1:]
+        project_path = "/".join(project_segments) if project_segments else None
+        return gitlab_url, project_path
+
+    # Si no empieza por git, asume instancia raíz
+    gitlab_url = base
+    project_path = "/".join(segments) if segments else None
+    return gitlab_url, project_path
 
 def fetch_issues_from_gitlab(repo_url: str, token: str, project_path: Optional[str] = None) -> Dict[str, Any]:
     """Obtiene issues de GitLab"""
     try:
         # Obtener URL base de GitLab
-        parsed = urlparse(repo_url)
-        gitlab_url = f"{parsed.scheme}://{parsed.netloc}"
-        
-        # Extraer URL base y proyecto
-        if project_path:
-            # URL específica del proyecto
-            parts = project_path.replace("/", "%2F")
-            logger.info(f"📍 Usando project_path: {project_path} → {parts}")
-        else:
-            # Extraer del repositorio
-            path = parsed.path.lstrip("/").rstrip(".git")
-            # Si la ruta contiene /git/ al inicio, extraer solo la parte del proyecto
-            if path.startswith("git/"):
-                path = path[4:]  # Remover "git/"
-            if not path:
-                raise ValueError("No se pudo extraer ruta del proyecto")
-            parts = path.replace("/", "%2F")
-            logger.info(f"📍 Extrayendo del URL: {path} → {parts}")
-        
-        headers = {"PRIVATE-TOKEN": token}
-        
-        # Obtener issues del proyecto
+        # Obtener URL base de GitLab
+        # ---- Uso dentro de tu lógica ----
+        gitlab_url, extracted_project_path = split_gitlab_base_and_project(repo_url)
+
+        # Si te pasan project_path explícito, úsalo. Si no, usa el extraído del repo_url.
+        path = (project_path or extracted_project_path or "").lstrip("/")
+
+        if not path:
+            raise ValueError(
+                "No se pudo determinar la ruta del proyecto. "
+                "repo_url no incluye grupo/proyecto (solo /git) y project_path no fue provisto."
+            )
+
+        parts = path.replace("/", "%2F")
+        logger.info(f"📍 Proyecto: {path} → {parts}")
+
         issues_url = f"{gitlab_url}/api/v4/projects/{parts}/issues"
         logger.info(f"📥 Obteniendo issues de: {issues_url}")
+        
+        headers = {"PRIVATE-TOKEN": token}        
         
         all_issues = []
         page = 1
